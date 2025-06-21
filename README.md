@@ -1,6 +1,6 @@
-# Scholars Table - Educational Gaming Platform
+# Scholars Casino - Educational Gaming Platform
 
-Welcome to **Scholars Table**, where education meets gaming! This is a comprehensive learning platform that gamifies education through interactive quizzes, coding challenges, and tournaments across multiple subjects including Mathematics, Physics, Chemistry, and Programming.
+Welcome to **Scholars Casino**, where education meets gaming! This is a comprehensive learning platform that gamifies education through interactive quizzes, coding challenges, and tournaments across multiple subjects including Mathematics, Physics, Chemistry, and Programming.
 
 ## 🎯 Features
 
@@ -53,7 +53,7 @@ Welcome to **Scholars Table**, where education meets gaming! This is a comprehen
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd scholars-table
+   cd scholars-casino
    ```
 
 2. **Install dependencies**
@@ -73,7 +73,7 @@ Welcome to **Scholars Table**, where education meets gaming! This is a comprehen
 
 ### 🎨 Visual Schema Designer
 
-Scholars Table includes a comprehensive visual database schema designer that helps beginners learn database design fundamentals while creating production-ready Supabase schemas.
+Scholars Casino includes a comprehensive visual database schema designer that helps beginners learn database design fundamentals while creating production-ready Supabase schemas.
 
 #### Features:
 - **Drag & Drop Interface**: Visually design your database schema
@@ -365,7 +365,7 @@ Set up automated email sequences:
 3. Click "New Project"
 4. Choose your organization
 5. Fill in project details:
-   - **Name**: scholars-table
+   - **Name**: scholars-casino
    - **Database Password**: Choose a strong password
    - **Region**: Select closest to your users
 6. Click "Create new project"
@@ -672,11 +672,11 @@ Need help? Here's how to get support:
 1. **Documentation**: Check this README and inline code comments
 2. **Issues**: Open an issue on GitHub
 3. **Discussions**: Join our community discussions
-4. **Email**: Contact us at support@scholarstable.com
-5. **Billing Support**: For subscription issues, email billing@scholarstable.com
+4. **Email**: Contact us at support@scholarscasino.com
+5. **Billing Support**: For subscription issues, email billing@scholarscasino.com
 
 ---
 
 **Happy Learning & Growing! 🎓✨💰**
 
-*Transform your education journey with Scholars Table - where every question is an opportunity to grow, and every subscription supports your success!*
+*Transform your education journey with Scholars Casino - where every question is an opportunity to grow, and every subscription supports your success!*

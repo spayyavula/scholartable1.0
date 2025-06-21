@@ -17,9 +17,9 @@ This guide will help you set up Constant Contact integration for email marketing
 3. **Create a New Application**:
    - Click "Create New App"
    - Fill in your application details:
-     - App Name: "Scholars Table"
+     - App Name: "Scholars Casino"
      - Description: "Educational gaming platform email marketing"
-     - Website URL: Your domain (e.g., https://scholarstable.com)
+     - Website URL: Your domain (e.g., https://scholarscasino.com)
    - Accept the terms and create the app
 
 ## Step 2: Get API Credentials
@@ -136,9 +136,9 @@ const testCampaign = async () => {
       },
       body: JSON.stringify({
         name: 'Test Campaign',
-        subject: 'Welcome to Scholars Table!',
-        fromEmail: 'hello@scholarstable.com',
-        fromName: 'Scholars Table Team',
+        subject: 'Welcome to Scholars Casino!',
+        fromEmail: 'hello@scholarscasino.com',
+        fromName: 'Scholars Casino Team',
         htmlContent: '<h1>Welcome!</h1><p>Thank you for joining us.</p>',
         lists: ['newsletter']
       })

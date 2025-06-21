@@ -24,7 +24,7 @@ interface SubscriptionPlansProps {
 const plans = [
   {
     id: 'free',
-    name: 'Scholar',
+    name: 'Casino Scholar',
     price: 0,
     period: 'forever',
     description: 'Perfect for getting started with learning',
@@ -48,7 +48,7 @@ const plans = [
   },
   {
     id: 'pro',
-    name: 'Scholar Pro',
+    name: 'Casino Pro',
     price: 9.99,
     period: 'month',
     description: 'Unlock your full learning potential',
@@ -74,7 +74,7 @@ const plans = [
   },
   {
     id: 'premium',
-    name: 'Scholar Elite',
+    name: 'Casino Elite',
     price: 19.99,
     period: 'month',
     description: 'For serious learners and educators',
@@ -98,7 +98,7 @@ const plans = [
   },
   {
     id: 'enterprise',
-    name: 'Scholar Enterprise',
+    name: 'Casino Enterprise',
     price: 'Custom',
     period: 'contact us',
     description: 'For schools and large organizations',
@@ -129,7 +129,7 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onSelectPl
   const handleSelectPlan = (plan: typeof plans[0]) => {
     if (plan.id === 'enterprise') {
       // Handle enterprise contact form
-      window.open('mailto:enterprise@scholarstable.com?subject=Enterprise Plan Inquiry', '_blank');
+      window.open('mailto:enterprise@scholarscasino.com?subject=Enterprise Plan Inquiry', '_blank');
       return;
     }
     

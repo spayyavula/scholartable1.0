@@ -47,12 +47,12 @@ export const StripeCheckout: React.FC<StripeCheckoutProps> = ({
 
   const planDetails = {
     'pro': {
-      name: 'Scholar Pro',
+      name: 'Casino Pro',
       price: '$9.99/month',
       features: ['Unlimited quiz attempts', 'All coding challenges', 'AI tutor assistance']
     },
     'premium': {
-      name: 'Scholar Elite', 
+      name: 'Casino Elite', 
       price: '$19.99/month',
       features: ['Everything in Pro', 'Custom tournaments', 'Team collaboration', 'Priority support']
     }
