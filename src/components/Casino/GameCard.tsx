@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, Coins, Star } from 'lucide-react';
 import { Game } from '../../types';
+import { useAccessibility } from '../A11y/AccessibilityProvider';
+import { hapticImpact } from '../../capacitorApp';
 
 interface GameCardProps {
   game: Game;
@@ -9,6 +11,8 @@ interface GameCardProps {
 }
 
 export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
+  const { reduceMotion } = useAccessibility();
+
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'basic': return 'text-green-400 bg-green-400/20 border border-green-400/30';
@@ -40,14 +44,19 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
     }
   };
 
+  const handlePlay = () => {
+    hapticImpact();
+    onPlay(game);
+  };
+
   return (
     <motion.div
       className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-xl border border-gray-700/50 overflow-hidden hover:border-casino-gold-500/50 transition-all duration-300"
-      whileHover={{ scale: 1.05, y: -5 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={reduceMotion ? {} : { scale: 1.05, y: -5 }}
+      whileTap={reduceMotion ? {} : { scale: 0.98 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: reduceMotion ? 0.1 : 0.5 }}
     >
       {/* Card Header */}
       <div className="p-6 pb-4">
@@ -55,6 +64,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
           <div className="flex items-center space-x-3">
             <div className="text-4xl">{game.icon}</div>
             <div className="text-2xl">{getSubjectEmoji(game.subject)}</div>
+            <span className="sr-only">{game.subject} game</span>
           </div>
           <div className={`px-3 py-1 rounded-full text-xs font-semibold ${getDifficultyColor(game.difficulty)}`}>
             {getDifficultyLabel(game.difficulty)}
@@ -84,10 +94,11 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
 
         {/* Play Button */}
         <motion.button
-          onClick={() => onPlay(game)}
+          onClick={handlePlay}
           className="w-full bg-gradient-to-r from-casino-gold-500 to-casino-gold-600 hover:from-casino-gold-400 hover:to-casino-gold-500 text-gray-900 font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={reduceMotion ? {} : { scale: 1.02 }}
+          whileTap={reduceMotion ? {} : { scale: 0.98 }}
+          aria-label={`Play ${game.title} game`}
         >
           <Play className="w-5 h-5" />
           <span>Play Now</span>
