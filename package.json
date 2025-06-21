@@ -17,7 +17,6 @@
     "framer-motion": "^10.16.16",
     "@monaco-editor/react": "^4.6.0",
     "@tensorflow/tfjs": "^4.22.0",
-    "ml5": "^1.2.1",
     "patch-package": "latest"
   },
   "devDependencies": {
