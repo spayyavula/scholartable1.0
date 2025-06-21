@@ -24,7 +24,7 @@ const defaultContext: AccessibilityContextType = {
 
 const AccessibilityContext = createContext<AccessibilityContextType>(defaultContext);
 
-export const useAccessibility = () => useContext(AccessibilityContext);
+export const useAccessibility = () => React.useContext(AccessibilityContext);
 
 export const AccessibilityProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Initialize state from localStorage if available
