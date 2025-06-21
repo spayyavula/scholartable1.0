@@ -14,6 +14,11 @@ export default defineConfig({
   optimizeDeps: {
     exclude: [
       'lucide-react'
-    ]
+    ],
+    esbuildOptions: {
+      external: [
+        '@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops'
+      ]
+    }
   },
 });
