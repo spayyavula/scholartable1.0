@@ -358,10 +358,10 @@ class ConstantContactService {
     try {
       const welcomeCampaign: Omit<EmailCampaign, 'id' | 'stats'> = {
         name: `Welcome Email - ${email}`,
-        subject: `Welcome to Scholars Table, ${firstName || 'Scholar'}! 🎓`,
-        fromEmail: 'hello@scholarstable.com',
-        fromName: 'Scholars Table Team',
-        replyToEmail: 'support@scholarstable.com',
+        subject: `Welcome to Scholars Casino, ${firstName || 'Scholar'}! 🎓`,
+        fromEmail: 'hello@scholarscasino.com',
+        fromName: 'Scholars Casino Team',
+        replyToEmail: 'support@scholarscasino.com',
         htmlContent: this.getWelcomeEmailTemplate(firstName || 'Scholar'),
         lists: [], // Send to specific contact
         status: 'draft',
@@ -386,12 +386,12 @@ class ConstantContactService {
       <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
           <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #2563eb;">Welcome to Scholars Table! 🎓</h1>
+            <h1 style="color: #2563eb;">Welcome to Scholars Casino! 🎓</h1>
           </div>
           
           <p>Hi ${firstName},</p>
           
-          <p>Welcome to the Scholars Table community! We're thrilled to have you join thousands of learners who are transforming their education through gamified learning.</p>
+          <p>Welcome to the Scholars Casino community! We're thrilled to have you join thousands of learners who are transforming their education through gamified learning.</p>
           
           <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #1e40af; margin-top: 0;">What's Next?</h3>
@@ -404,17 +404,17 @@ class ConstantContactService {
           </div>
           
           <div style="text-align: center; margin: 30px 0;">
-            <a href="https://scholarstable.com/dashboard" style="background: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Start Learning Now</a>
+            <a href="https://scholarscasino.com/dashboard" style="background: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">Start Learning Now</a>
           </div>
           
           <p>If you have any questions, just reply to this email. We're here to help!</p>
           
           <p>Happy learning!<br>
-          The Scholars Table Team</p>
+          The Scholars Casino Team</p>
           
           <hr style="margin: 30px 0; border: none; border-top: 1px solid #e5e7eb;">
           <p style="font-size: 12px; color: #6b7280; text-align: center;">
-            You received this email because you signed up for Scholars Table. 
+            You received this email because you signed up for Scholars Casino. 
             <a href="[UNSUBSCRIBE_URL]" style="color: #6b7280;">Unsubscribe</a>
           </p>
         </div>

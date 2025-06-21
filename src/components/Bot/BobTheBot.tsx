@@ -92,7 +92,7 @@ export const BobTheBot: React.FC<BobTheBotProps> = ({
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">Bob the Bot</h3>
-                  <p className="text-xs text-gray-700">Your Learning Companion</p>
+                  <p className="text-xs text-gray-700">Your Casino Learning Companion</p>
                 </div>
               </div>
               <button
