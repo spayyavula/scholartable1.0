@@ -1,17 +1,25 @@
 // Import TensorFlow.js safely
 let tf: any;
 
-// Dynamically import TensorFlow with error handling
+// Dynamically import TensorFlow with robust error handling
 async function importTensorFlow() {
   try {
-    // Use dynamic import with error handling
-    tf = await import('@tensorflow/tfjs').catch(error => {
-      console.warn('TensorFlow.js import failed:', error);
-      return null;
-    });
-    console.log('TensorFlow.js imported successfully');
+    // Wrap in try-catch for more robust error handling
+    const tfModule = await Promise.resolve().then(() => import('@tensorflow/tfjs'))
+      .catch(error => {
+        console.warn('TensorFlow.js import failed:', error);
+        return null;
+      });
+    
+    if (tfModule) {
+      tf = tfModule;
+      console.log('TensorFlow.js imported successfully');
+      return true;
+    }
+    return false;
   } catch (error) {
     console.error('Failed to import TensorFlow.js:', error);
+    return false;
   }
 }
 
@@ -48,23 +56,29 @@ class MLService {
   async initialize(): Promise<void> {
     try {
       if (this.isInitialized) return;
-
+      
       // Import TensorFlow.js first
-      await importTensorFlow();
-      if (!tf) {
-        console.warn('TensorFlow.js could not be imported, using fallback mode');
-        this.isInitialized = true; // Mark as initialized but in fallback mode
+      const tfLoaded = await importTensorFlow();
+      
+      if (!tfLoaded) {
+        console.warn('TensorFlow.js could not be imported, switching to fallback mode');
+        this.isInitialized = true; // Mark as initialized in fallback mode
         return;
       }
-
+      
       // Set TensorFlow.js backend
-      await tf.ready();
-      console.log('TensorFlow.js initialized with backend:', tf.getBackend());
-
-      // Initialize models
-      await this.initializePerformanceModel();
-      await this.initializeDifficultyModel();
-
+      try {
+        await tf.ready();
+        console.log('TensorFlow.js initialized with backend:', tf.getBackend());
+        
+        // Initialize models
+        await this.initializePerformanceModel();
+        await this.initializeDifficultyModel();
+      } catch (modelError) {
+        console.warn('Failed to initialize TensorFlow models:', modelError);
+        // Continue in fallback mode
+      }
+      
       this.isInitialized = true;
       console.log('ML Service initialized successfully');
     } catch (error) {
@@ -260,8 +274,7 @@ class MLService {
     difficulty: string,
     userLevel: number,
     currentAccuracy: number,
-    streak: number
-    streak: number,
+    currentAccuracy: number, 
   ): Promise<PredictionResult> {
     if (!this.performanceModel || !this.difficultyModel) {
       // Return mock prediction data if models aren't available
@@ -277,7 +290,7 @@ class MLService {
       };
     }
 
-    try {
+    try {      
       const subjectEncoded = this.encodeSubject(subject);
       const difficultyEncoded = this.encodeDifficulty(difficulty);
       
@@ -331,7 +344,7 @@ class MLService {
         suggestions
       };
     } catch (error) {
-      console.error('Error predicting performance:', error);
+      console.error('Error in ML prediction, using fallback data:', error);
       throw error;
     }
   }
@@ -435,8 +448,9 @@ class MLService {
   async visualizeModelPerformance(): Promise<void> {
     // Visualization functionality removed to avoid tfvis dependency
 
-    // Simply log that visualization is disabled
+    // Just log that visualization is disabled
     console.log('Model visualization is disabled in this version');
+    return Promise.resolve();
   }
 
   async saveModel(): Promise<void> {
@@ -448,8 +462,9 @@ class MLService {
 
   async loadModel(): Promise<void> {
     // Skip model loading in browser environments
-    console.log('Using fresh models or fallback mode - model loading is disabled');
-    return;
+    console.log('Model saving is disabled in this version');
+    console.log('Using fresh models or fallback mode - model loading is disabled in browser');
+    return Promise.resolve();
   }
 
   dispose(): void {

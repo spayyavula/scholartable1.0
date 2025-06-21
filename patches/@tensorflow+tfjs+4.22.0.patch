@@ -8,3 +8,15 @@ index 1234567..abcdef0 100644
  import * as tfjsLayers from '@tensorflow/tfjs-layers';
  import * as tfjsConverter from '@tensorflow/tfjs-converter';
  import * as tfjsBackend from '@tensorflow/tfjs-backend-cpu';
+@@ -7,6 +6,11 @@
+ import * as tfjsBackendWebgl from '@tensorflow/tfjs-backend-webgl';
+ 
+ // Add a try-catch for the problematic import
++try {
++  import('@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops').catch(e => {
++    console.warn('Failed to load chained ops:', e);
++  });
++} catch (e) { console.warn('Error importing chained ops:', e); }
+ 
+ export { tfjs, tfjsLayers, tfjsConverter, tfjsBackend, tfjsBackendWebgl };
+ export * from '@tensorflow/tfjs-core';

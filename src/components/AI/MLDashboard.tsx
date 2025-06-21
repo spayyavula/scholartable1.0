@@ -129,7 +129,6 @@ export const MLDashboard: React.FC<MLDashboardProps> = ({
   const handlePredict = async () => {
     if (!isInitialized) return;
     
-    // Safely make predictions with error handling
     try {
       const currentAccuracy = userStats.correctAnswers / userStats.questionsAnswered || 0.5;
       const result = await mlService.predictPerformance(
@@ -137,21 +136,20 @@ export const MLDashboard: React.FC<MLDashboardProps> = ({
         selectedDifficulty,
         userLevel,
         currentAccuracy,
-        userStats.streakRecord
         userStats.streakRecord,
       );
       setPredictions(result);
     } catch (error) {
-      console.error('ML prediction failed, using fallback data:', error);
+      console.error('Prediction failed, using fallback data:', error);
       // Provide fallback prediction data
       setPredictions({
         recommendedDifficulty: 'intermediate',
         expectedAccuracy: 0.75,
         confidence: 0.8,
         suggestions: [
-          'Continue regular practice sessions',
-          'Focus on fundamentals before advanced topics',
-          'Try different learning approaches to find what works best'
+          'Continue practicing regularly to improve your skills',
+          `Focus on ${selectedSubject} fundamentals to build a strong foundation`,
+          'Try a mix of different difficulty levels for balanced learning'
         ]
       });
     }

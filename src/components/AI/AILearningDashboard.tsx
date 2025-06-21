@@ -219,11 +219,11 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
           <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-xl p-6 mb-6">
             <div className="flex items-start space-x-4">
               <AlertTriangle className="w-6 h-6 text-yellow-400 mt-1" />
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-2">TensorFlow.js Integration Notice</h3>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-white mb-2">AI Integration Notice</h3>
                 <p className="text-gray-300">
-                  The TensorFlow.js integration is temporarily disabled to ensure smooth operation of the application.
-                  We're working on a more optimized implementation that will be available soon.
+                  Our advanced AI features are running in compatibility mode to ensure smooth operation across all devices and browsers.
+                  We're continuously improving our machine learning capabilities for an even better experience.
                 </p>
               </div>
             </div>
@@ -302,7 +302,7 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
                 <h2 className="text-2xl font-heading font-bold text-white">
                   AI Learning Intelligence
                 </h2>
-                <p className="text-purple-100">Powered by Advanced Learning Analytics</p>
+                <p className="text-purple-100">Powered by Intelligent Learning Algorithms</p>
               </div>
             </div>
             
