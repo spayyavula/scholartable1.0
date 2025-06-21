@@ -302,7 +302,7 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
                 <h2 className="text-2xl font-heading font-bold text-white">
                   AI Learning Intelligence
                 </h2>
-                <p className="text-purple-100">Powered by TensorFlow.js Machine Learning</p>
+                <p className="text-purple-100">Powered by Advanced Learning Analytics</p>
               </div>
             </div>
             
