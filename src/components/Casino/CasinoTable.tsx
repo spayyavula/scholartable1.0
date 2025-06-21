@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useAccessibility } from '../A11y/AccessibilityProvider';
 
 interface CasinoTableProps {
   children: React.ReactNode;
