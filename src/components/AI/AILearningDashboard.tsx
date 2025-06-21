@@ -19,7 +19,9 @@ import {
   Users,
   Clock,
   Calendar,
-  X
+  X,
+  AlertTriangle,
+  CheckCircle
 } from 'lucide-react';
 import { MLDashboard } from './MLDashboard';
 import { SmartRecommendations } from './SmartRecommendations';
@@ -249,15 +251,6 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
         </motion.div>
       </div>
     );
-    
-    /* Temporarily disabled due to TensorFlow.js issues
-    return (<MLDashboard
-        onClose={onClose}
-        userLevel={userLevel}
-        userStats={userStats}
-      />);
-    */
-    );
   }
 
   if (activeTab === 'recommendations') {
@@ -409,7 +402,7 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
                         <p className="text-gray-400 text-sm">{feature.description}</p>
                         <div className="mt-3">
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            feature.status ===   'active' ? 'bg-green-900/30 text-green-400' :
+                            feature.status === 'active' ? 'bg-green-900/30 text-green-400' :
                             feature.status === 'training' ? 'bg-yellow-900/30 text-yellow-400' :
                             'bg-blue-900/30 text-blue-400'
                           }`}>
