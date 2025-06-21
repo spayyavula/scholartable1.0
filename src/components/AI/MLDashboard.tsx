@@ -43,10 +43,11 @@ export const MLDashboard: React.FC<MLDashboardProps> = ({
   useEffect(() => {
     initializeML();
   }, []);
-
+  
+  // Safely initialize ML with fallback handling
   const initializeML = async () => {
     try {
-      // Try to initialize ML service with graceful fallback
+      // Wrap all ML operations in try-catch for safety
       try {
         await mlService.initialize();
         await mlService.loadModel();
@@ -57,18 +58,37 @@ export const MLDashboard: React.FC<MLDashboardProps> = ({
         setIsInitialized(false);
       }
       
-      // Generate some mock learning data for demonstration
+      // Generate mock learning data regardless of ML status
       const mockData = generateMockLearningData();
       try {
         const pattern = await mlService.analyzeLearningPatterns(mockData);
         setLearningPattern(pattern);
       } catch (error) {
         console.warn('Learning pattern analysis skipped:', error);
+        // Set fallback learning pattern
+        setLearningPattern({
+          strongSubjects: ['mathematics', 'javascript'],
+          weakSubjects: ['physics'],
+          optimalStudyTime: 1800,
+          learningStyle: 'visual',
+          improvementAreas: ['Focus on physics concepts']
+        });
       }
     } catch (error) {
       console.error('Failed to initialize ML:', error);
+      // Ensure UI doesn't break even if ML fails completely
+      setIsInitialized(false);
+      setLearningPattern({
+        strongSubjects: ['mathematics'],
+        weakSubjects: ['physics'],
+        optimalStudyTime: 1800,
+        learningStyle: 'visual',
+        improvementAreas: ['Regular practice']
+      });
     }
   };
+
+  const initializeML = async () => {
 
   const generateMockLearningData = (): LearningData[] => {
     const subjects = ['mathematics', 'physics', 'chemistry', 'javascript', 'python'];

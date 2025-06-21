@@ -220,10 +220,10 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
             <div className="flex items-start space-x-4">
               <AlertTriangle className="w-6 h-6 text-yellow-400 mt-1" />
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-white mb-2">AI Integration Notice</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">Learning System Notice</h3>
                 <p className="text-gray-300">
-                  Our advanced AI features are running in compatibility mode to ensure smooth operation across all devices and browsers.
-                  We're continuously improving our machine learning capabilities for an even better experience.
+                  Our advanced learning features are running in compatibility mode to ensure smooth operation across all devices and browsers.
+                  We're continuously improving our algorithms for an even better experience.
                 </p>
               </div>
             </div>
@@ -300,9 +300,9 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
               </div>
               <div>
                 <h2 className="text-2xl font-heading font-bold text-white">
-                  AI Learning Intelligence
+                  Learning Intelligence
                 </h2>
-                <p className="text-purple-100">Powered by Intelligent Learning Algorithms</p>
+                <p className="text-purple-100">Powered by Smart Learning Algorithms</p>
               </div>
             </div>
             
@@ -310,7 +310,7 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
               <div className="bg-white/10 rounded-lg px-3 py-2">
                 <div className="flex items-center space-x-2">
                   <Cpu className="w-4 h-4 text-white" />
-                  <span className="text-white text-sm font-medium">AI Active</span>
+                  <span className="text-white text-sm font-medium">Learning Active</span>
                 </div>
               </div>
               <button

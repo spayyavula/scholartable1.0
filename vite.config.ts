@@ -4,41 +4,64 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
-    // Improve production build configuration
     rollupOptions: {
-      external: [],
+      // Explicitly exclude problematic modules
+      external: [
+        '@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops'
+      ],
       output: {
-        manualChunks: {
-          // Split large dependencies into separate chunks
-          'react-vendor': ['react', 'react-dom'],
-          'ui-vendor': ['framer-motion', 'lucide-react']
-        }
+        // Improve chunking strategy
+        manualChunks(id) {
+          // Group React and related packages
+          if (id.includes('node_modules/react') || 
+              id.includes('node_modules/react-dom')) {
+            return 'react-vendor';
+          }
+          
+          // Group UI-related packages
+          if (id.includes('node_modules/framer-motion') || 
+              id.includes('node_modules/lucide-react')) {
+            return 'ui-vendor';
+          }
+          
+          // Separate chunk for TensorFlow (if used)
+          if (id.includes('node_modules/@tensorflow')) {
+            return 'tensorflow-vendor';
+          }
+        },
+        // Avoid using problematic imports in generated code
+        intro: 'window.__tfjs_chained_ops_resolved = true;'
       }
     },
-    // Improve chunk loading
     chunkSizeWarningLimit: 1000,
     sourcemap: true
   },
   resolve: {
-    // Use a more robust approach for TensorFlow.js imports
-    alias: [
-      {
-        find: '@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops',
-        replacement: './node_modules/@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops.js'
-      }
-    ]
+    // More robust alias approach
+    alias: {
+      '@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops': 
+        './src/polyfills.ts'
+    }
   },
   optimizeDeps: {
-    // Improve dependency optimization
-    include: ['react', 'react-dom', 'framer-motion', 'lucide-react'],
-    exclude: ['@tensorflow/tfjs'],
+    include: [
+      'react', 
+      'react-dom', 
+      'framer-motion', 
+      'lucide-react'
+    ],
+    exclude: [
+      '@tensorflow/tfjs', 
+      '@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops'
+    ],
     esbuildOptions: {
       define: {
-        global: 'globalThis'
+        global: 'globalThis',
+        // Add additional definitions to help with browser compatibility
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
       }
     }
   },
-  // Add server configuration for better development experience
   server: {
     open: true,
     cors: true

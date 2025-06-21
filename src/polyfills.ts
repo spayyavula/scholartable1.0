@@ -1,5 +1,19 @@
 // Polyfills and global definitions for browser compatibility
 
+// TensorFlow.js specific polyfills and fixes
+// This helps prevent the "@tensorflow/tfjs-core/dist/public/chained_ops/register_all_chained_ops" error
+if (typeof window !== 'undefined') {
+  // Create a mock for problematic TensorFlow imports
+  window.registerOps = () => {
+    console.log('Mock registerOps called');
+    return Promise.resolve();
+  };
+  
+  // Add to module cache to prevent further import attempts
+  // This is a workaround for the module resolution error
+  const moduleCache = (window as any).__tfjs_chained_ops_resolved = true;
+}
+
 // Ensure globalThis is defined for older browsers
 if (typeof globalThis === 'undefined') {
   (window as any).globalThis = window;

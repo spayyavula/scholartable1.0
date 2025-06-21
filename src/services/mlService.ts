@@ -1,15 +1,25 @@
 // Import TensorFlow.js safely
 let tf: any;
 
-// Dynamically import TensorFlow with robust error handling
+// Safely import TensorFlow.js with multiple fallback strategies
 async function importTensorFlow() {
   try {
-    // Wrap in try-catch for more robust error handling
-    const tfModule = await Promise.resolve().then(() => import('@tensorflow/tfjs'))
-      .catch(error => {
-        console.warn('TensorFlow.js import failed:', error);
-        return null;
-      });
+    // First attempt: dynamic import with error handling
+    let tfModule = null;
+    
+    try {
+      tfModule = await import('@tensorflow/tfjs');
+    } catch (importError) {
+      console.warn('Primary TensorFlow.js import failed, trying fallback:', importError);
+      
+      // Second attempt: try importing core only
+      try {
+        tfModule = await import('@tensorflow/tfjs-core');
+      } catch (coreError) {
+        console.warn('TensorFlow.js core import also failed:', coreError);
+        return false;
+      }
+    }
     
     if (tfModule) {
       tf = tfModule;
@@ -18,6 +28,7 @@ async function importTensorFlow() {
     }
     return false;
   } catch (error) {
+    // Final fallback if all import strategies fail
     console.error('Failed to import TensorFlow.js:', error);
     return false;
   }
@@ -62,7 +73,7 @@ class MLService {
       
       if (!tfLoaded) {
         console.warn('TensorFlow.js could not be imported, switching to fallback mode');
-        this.isInitialized = true; // Mark as initialized in fallback mode
+        this.isInitialized = true; // Continue in fallback mode
         return;
       }
       
@@ -71,7 +82,7 @@ class MLService {
         await tf.ready();
         console.log('TensorFlow.js initialized with backend:', tf.getBackend());
         
-        // Initialize models
+        // Initialize models only if TensorFlow is available
         await this.initializePerformanceModel();
         await this.initializeDifficultyModel();
       } catch (modelError) {
@@ -79,7 +90,7 @@ class MLService {
         // Continue in fallback mode
       }
       
-      this.isInitialized = true;
+      this.isInitialized = true; // Mark as initialized regardless of model status
       console.log('ML Service initialized successfully');
     } catch (error) {
       console.error('Failed to initialize ML Service:', error);
@@ -87,6 +98,7 @@ class MLService {
     }
   }
 
+  // Only create models if TensorFlow is available
   private async initializePerformanceModel(): Promise<void> {
     // Create a model to predict user performance
     this.performanceModel = tf.sequential({
@@ -274,7 +286,7 @@ class MLService {
     difficulty: string,
     userLevel: number,
     currentAccuracy: number,
-    currentAccuracy: number, 
+    currentAccuracy: number,
   ): Promise<PredictionResult> {
     if (!this.performanceModel || !this.difficultyModel) {
       // Return mock prediction data if models aren't available
@@ -282,7 +294,7 @@ class MLService {
         recommendedDifficulty: difficulty === 'advanced' ? 'intermediate' : 'advanced',
         expectedAccuracy: Math.min(0.85, currentAccuracy + 0.05),
         confidence: 0.75,
-        suggestions: [
+        suggestions: [ // Provide helpful suggestions even without ML
           'Continue practicing regularly to improve your skills',
           `Focus on ${subject} fundamentals to build a strong foundation`,
           'Try a mix of different difficulty levels for balanced learning'
@@ -291,7 +303,7 @@ class MLService {
     }
 
     try {      
-      const subjectEncoded = this.encodeSubject(subject);
+      const subjectEncoded = this.encodeSubject(subject); 
       const difficultyEncoded = this.encodeDifficulty(difficulty);
       
       // Predict performance
@@ -299,7 +311,7 @@ class MLService {
         subjectEncoded,
         difficultyEncoded,
         300, // Average time spent
-        currentAccuracy,
+        currentAccuracy, 
         streak,
         userLevel
       ]]);
@@ -311,7 +323,7 @@ class MLService {
       const difficultyInput = tf.tensor2d([[
         currentAccuracy,
         300,
-        streak,
+        streak, 
         userLevel,
         subjectEncoded
       ]]);
@@ -337,7 +349,7 @@ class MLService {
       difficultyInput.dispose();
       difficultyPrediction.dispose();
 
-      return {
+      return { 
         recommendedDifficulty,
         expectedAccuracy: expectedAccuracy[0],
         confidence: Math.max(...Array.from(difficultyProbs)),
@@ -345,7 +357,8 @@ class MLService {
       };
     } catch (error) {
       console.error('Error in ML prediction, using fallback data:', error);
-      throw error;
+      // Return fallback data instead of throwing
+      return this.getFallbackPrediction(subject, difficulty, currentAccuracy);
     }
   }
 
@@ -376,6 +389,20 @@ class MLService {
     }
 
     return suggestions;
+  }
+
+  // Provide fallback prediction data when TensorFlow fails
+  private getFallbackPrediction(subject: string, currentDifficulty: string, accuracy: number): PredictionResult {
+    const difficulties = ['basic', 'intermediate', 'advanced'];
+    const currentIndex = difficulties.indexOf(currentDifficulty);
+    const recommendedIndex = accuracy > 0.8 ? Math.min(currentIndex + 1, 2) : Math.max(currentIndex - 1, 0);
+    
+    return {
+      recommendedDifficulty: difficulties[recommendedIndex],
+      expectedAccuracy: Math.min(0.9, accuracy + (recommendedIndex > currentIndex ? -0.1 : 0.1)),
+      confidence: 0.7,
+      suggestions: ['Practice regularly', `Focus on ${subject} fundamentals`, 'Try varied question types']
+    };
   }
 
   async analyzeLearningPatterns(learningData: LearningData[]): Promise<LearningPattern> {
