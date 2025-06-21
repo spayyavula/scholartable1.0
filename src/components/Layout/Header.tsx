@@ -58,8 +58,8 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources, onNavi
                 </h1>
                 <p className="text-xs text-gray-400 font-body">Where Education Meets Gaming</p>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* User Info */}
           <div className="flex items-center space-x-6">
