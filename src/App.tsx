@@ -20,6 +20,7 @@ import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp, Brai
 import { initCapacitor, hapticImpact } from './capacitorApp';
 import { useAccessibility } from './components/A11y/AccessibilityProvider';
 import { Footer } from './components/Layout/Footer';
+import { MobileNavBar } from './components/Layout/MobileNavBar';
 
 function App() {
   const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer' | 'subscription' | 'checkout' | 'newsletter' | 'marketing' | 'sat-resources' | 'ai-dashboard'>('lobby');
@@ -29,6 +30,7 @@ function App() {
   const [bobMessageHistory, setBobMessageHistory] = useState<BobMessage[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<{ planId: string; priceId: string } | null>(null);
   const { reduceMotion } = useAccessibility();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Initialize Capacitor
   useEffect(() => {
@@ -172,6 +174,35 @@ function App() {
     setSelectedPlan(null);
   };
 
+  const handleNavigate = (view: string) => {
+    switch (view) {
+      case 'lobby':
+        setCurrentView('lobby');
+        break;
+      case 'schema-designer':
+        handleOpenSchemaDesigner();
+        break;
+      case 'subscription':
+        handleOpenSubscription();
+        break;
+      case 'newsletter':
+        handleOpenNewsletter();
+        break;
+      case 'sat-resources':
+        handleOpenSATResources();
+        break;
+      case 'ai-dashboard':
+        handleOpenAIDashboard();
+        break;
+      case 'tournaments':
+        // Future implementation
+        triggerBobMessage('tips', 'Tournaments feature coming soon!');
+        break;
+      default:
+        setCurrentView('lobby');
+    }
+  };
+
   const handleOpenNewsletter = () => {
     setCurrentView('newsletter');
   };
@@ -303,7 +334,11 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <a href="#main-content" className="skip-to-content">Skip to content</a>
-      <Header user={user} onOpenSATResources={handleOpenSATResources} />
+      <Header 
+        user={user} 
+        onOpenSATResources={handleOpenSATResources} 
+        onNavigate={handleNavigate}
+      />
       
       <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
@@ -647,6 +682,9 @@ function App() {
       
       {/* Footer */}
       <Footer />
+      
+      {/* Mobile Navigation Bar */}
+      <MobileNavBar currentView={currentView} onNavigate={handleNavigate} />
     </div>
   );
 }

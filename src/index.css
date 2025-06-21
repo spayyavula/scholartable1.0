@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile-first responsive utilities */
+@layer utilities {
+  .xs\:inline {
+    @media (min-width: 480px) {
+      display: inline;
+    }
+  }
+}
+
 /* Accessibility styles */
 :root {
   --primary-color: #3B82F6;
@@ -104,4 +113,57 @@ footer input:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 0;
   border-radius: 0;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .card {
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .grid {
+    gap: 1rem;
+  }
+}
+
+/* Bottom navigation for mobile */
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--background-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem;
+  z-index: 40;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.mobile-nav-item.active {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.mobile-nav-item span {
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
 }

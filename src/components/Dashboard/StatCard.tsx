@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { DivideIcon as LucideIcon } from 'lucide-react';
+import { useAccessibility } from '../A11y/AccessibilityProvider';
 
 interface StatCardProps {
   title: string;
@@ -14,13 +15,15 @@ interface StatCardProps {
 }
 
 export const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, color, trend }) => {
+  const { reduceMotion } = useAccessibility();
+  
   return (
     <motion.div
-      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700/50 shadow-xl"
-      whileHover={{ scale: 1.02, y: -2 }}
+      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 sm:p-6 border border-gray-700/50 shadow-xl"
+      whileHover={reduceMotion ? {} : { scale: 1.02, y: -2 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: reduceMotion ? 0.1 : 0.5 }}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">

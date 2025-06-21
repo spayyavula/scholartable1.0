@@ -1,15 +1,28 @@
 import React from 'react';
-import { User, Coins, Trophy, Settings, BookOpen } from 'lucide-react';
+import { User, Coins, Trophy, Settings, BookOpen, Menu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { User as UserType } from '../../types';
 import { AccessibilityMenu } from '../A11y/AccessibilityMenu';
+import { MobileMenu } from './MobileMenu';
+import { useAccessibility } from '../A11y/AccessibilityProvider';
+import { hapticImpact } from '../../capacitorApp';
 
 interface HeaderProps {
   user: UserType;
   onOpenSATResources?: () => void;
+  onNavigate?: (view: string) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
+export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources, onNavigate }) => {
+  const { reduceMotion } = useAccessibility();
+  
+  const handleNavigate = (view: string) => {
+    if (onNavigate) {
+      onNavigate(view);
+      hapticImpact();
+    }
+  };
+
   return (
     <motion.header 
       className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-2xl border-b border-casino-gold-600/30"
@@ -20,18 +33,31 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <motion.div 
-            className="flex items-center space-x-3"
-            whileHover={{ scale: 1.05 }}
-          >
-            <div className="w-12 h-12 bg-gradient-to-br from-casino-gold-400 to-casino-gold-600 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-2xl">📚</span>
-            </div>
-            <div>
-              <h1 className="text-2xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-casino-gold-400 to-casino-gold-200">
-                Scholars Casino
-              </h1>
-              <p className="text-xs text-gray-400 font-body">Where Education Meets Gaming</p>
+          <div className="flex items-center">
+            {/* Mobile Menu */}
+            {onNavigate && (
+              <div className="mr-3">
+                <MobileMenu 
+                  onNavigate={handleNavigate} 
+                  userName={user.name}
+                  userAvatar={user.avatar}
+                />
+              </div>
+            )}
+            
+            <motion.div 
+              className="flex items-center space-x-3"
+              whileHover={reduceMotion ? {} : { scale: 1.05 }}
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-casino-gold-400 to-casino-gold-600 rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-2xl">📚</span>
+              </div>
+              <div className="hidden sm:block">
+                <h1 className="text-2xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-casino-gold-400 to-casino-gold-200">
+                  Scholars Casino
+                </h1>
+                <p className="text-xs text-gray-400 font-body">Where Education Meets Gaming</p>
+              </div>
             </div>
           </motion.div>
 
@@ -39,12 +65,12 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
           <div className="flex items-center space-x-6">
             {/* SAT Resources Button */}
             {onOpenSATResources && (
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <motion.button
                   onClick={onOpenSATResources}
                   className="flex items-center space-x-2 bg-indigo-600/20 px-4 py-2 rounded-full border border-indigo-600/30 hover:bg-indigo-600/30 transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={reduceMotion ? {} : { scale: 1.05 }}
+                  whileTap={reduceMotion ? {} : { scale: 0.95 }}
                   aria-label="Open SAT preparation resources"
                 >
                   <BookOpen className="w-4 h-4 text-indigo-400" />
@@ -57,33 +83,33 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
             
             {/* Coins */}
             <motion.div 
-              className="flex items-center space-x-2 bg-casino-gold-600/20 px-4 py-2 rounded-full border border-casino-gold-600/30" 
+              className="flex items-center space-x-2 bg-casino-gold-600/20 px-3 sm:px-4 py-2 rounded-full border border-casino-gold-600/30" 
               aria-label={`${user.coins.toLocaleString()} coins`}
-              whileHover={{ scale: 1.05, backgroundColor: 'rgba(251, 191, 36, 0.3)' }}
+              whileHover={reduceMotion ? {} : { scale: 1.05, backgroundColor: 'rgba(251, 191, 36, 0.3)' }}
             >
               <Coins className="w-5 h-5 text-casino-gold-400" />
-              <span className="text-casino-gold-200 font-semibold font-body">
+              <span className="text-casino-gold-200 font-semibold font-body hidden xs:inline">
                 {user.coins.toLocaleString()}
               </span>
             </motion.div>
 
             {/* XP Level */}
             <motion.div 
-              className="flex items-center space-x-2 bg-casino-green-600/20 px-4 py-2 rounded-full border border-casino-green-600/30"
+              className="flex items-center space-x-2 bg-casino-green-600/20 px-3 sm:px-4 py-2 rounded-full border border-casino-green-600/30"
               aria-label={`Level ${user.level}`}
-              whileHover={{ scale: 1.05, backgroundColor: 'rgba(34, 197, 94, 0.3)' }}
+              whileHover={reduceMotion ? {} : { scale: 1.05, backgroundColor: 'rgba(34, 197, 94, 0.3)' }}
             >
               <Trophy className="w-5 h-5 text-casino-green-400" />
-              <span className="text-casino-green-200 font-semibold font-body">
+              <span className="text-casino-green-200 font-semibold font-body hidden xs:inline">
                 Level {user.level}
               </span>
             </motion.div>
 
             {/* User Profile */}
             <motion.div 
-              className="flex items-center space-x-3 bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700/50"
+              className="hidden md:flex items-center space-x-3 bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700/50"
               aria-label={`User profile: ${user.name}`}
-              whileHover={{ scale: 1.05, backgroundColor: 'rgba(31, 41, 55, 0.7)' }}
+              whileHover={reduceMotion ? {} : { scale: 1.05, backgroundColor: 'rgba(31, 41, 55, 0.7)' }}
             >
               <img
                 src={user.avatar}
