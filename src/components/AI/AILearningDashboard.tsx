@@ -17,7 +17,9 @@ import {
   Award,
   BookOpen,
   Users,
-  Clock
+  Clock,
+  Calendar,
+  X
 } from 'lucide-react';
 import { MLDashboard } from './MLDashboard';
 import { SmartRecommendations } from './SmartRecommendations';
@@ -257,7 +259,7 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
                 onClick={onClose}
                 className="text-white hover:text-gray-200 transition-colors"
               >
-                ✕
+                <X className="w-6 h-6" />
               </button>
             </div>
           </div>
