@@ -187,11 +187,76 @@ export const AILearningDashboard: React.FC<AILearningDashboardProps> = ({
 
   if (activeTab === 'ml') {
     return (
-      <MLDashboard
+      <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+        <motion.div
+          className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl w-full max-w-7xl h-[95vh] overflow-hidden p-6"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-4">
+              <div className="bg-white/20 rounded-full p-3">
+                <Brain className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-heading font-bold text-white">
+                  Machine Learning Models
+                </h2>
+                <p className="text-purple-100">TensorFlow.js integration temporarily disabled</p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="text-white hover:text-gray-200 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          
+          <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-xl p-6 mb-6">
+            <div className="flex items-start space-x-4">
+              <AlertTriangle className="w-6 h-6 text-yellow-400 mt-1" />
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">TensorFlow.js Integration Notice</h3>
+                <p className="text-gray-300">
+                  The TensorFlow.js integration is temporarily disabled to ensure smooth operation of the application.
+                  We're working on a more optimized implementation that will be available soon.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/50">
+              <h3 className="text-lg font-semibold text-white mb-4">Alternative Features Available</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  <span>Adaptive learning paths</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  <span>Performance analytics</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  <span>Smart recommendations</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    );
+    
+    /* Temporarily disabled due to TensorFlow.js issues
+    return (<MLDashboard
         onClose={onClose}
         userLevel={userLevel}
         userStats={userStats}
-      />
+      />);
+    */
     );
   }
 

@@ -1,4 +1,15 @@
-import * as tf from '@tensorflow/tfjs';
+// Import TensorFlow.js safely
+let tf: any;
+
+// Dynamically import TensorFlow to avoid build issues
+async function importTensorFlow() {
+  try {
+    tf = await import('@tensorflow/tfjs');
+    console.log('TensorFlow.js imported successfully');
+  } catch (error) {
+    console.error('Failed to import TensorFlow.js:', error);
+  }
+}
 
 export interface LearningData {
   userId: string;
@@ -28,11 +39,17 @@ export interface LearningPattern {
 class MLService {
   private performanceModel: tf.LayersModel | null = null;
   private difficultyModel: tf.LayersModel | null = null;
-  private isInitialized = false;
+  private isInitialized: boolean = false;
 
   async initialize(): Promise<void> {
     try {
       if (this.isInitialized) return;
+      
+      // Import TensorFlow.js first
+      await importTensorFlow();
+      if (!tf) {
+        throw new Error('TensorFlow.js could not be imported');
+      }
       
       // Set TensorFlow.js backend
       await tf.ready();

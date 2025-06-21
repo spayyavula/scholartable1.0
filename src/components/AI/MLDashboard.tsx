@@ -14,7 +14,7 @@ import {
   RefreshCw,
   X
 } from 'lucide-react';
-import { mlService, LearningData, PredictionResult, LearningPattern } from '../../services/mlService';
+// TensorFlow.js import is handled dynamically in mlService.ts
 
 interface MLDashboardProps {
   onClose: () => void;
@@ -46,14 +46,24 @@ export const MLDashboard: React.FC<MLDashboardProps> = ({
 
   const initializeML = async () => {
     try {
-      await mlService.initialize();
-      await mlService.loadModel();
-      setIsInitialized(true);
+      try {
+        await mlService.initialize();
+        await mlService.loadModel();
+        setIsInitialized(true);
+      } catch (error) {
+        console.warn('ML initialization skipped:', error);
+        // Continue without ML functionality
+        setIsInitialized(false);
+      }
       
       // Generate some mock learning data for demonstration
       const mockData = generateMockLearningData();
-      const pattern = await mlService.analyzeLearningPatterns(mockData);
-      setLearningPattern(pattern);
+      try {
+        const pattern = await mlService.analyzeLearningPatterns(mockData);
+        setLearningPattern(pattern);
+      } catch (error) {
+        console.warn('Learning pattern analysis skipped:', error);
+      }
     } catch (error) {
       console.error('Failed to initialize ML:', error);
     }
@@ -117,7 +127,7 @@ export const MLDashboard: React.FC<MLDashboardProps> = ({
 
   const handlePredict = async () => {
     if (!isInitialized) return;
-
+    
     try {
       const currentAccuracy = userStats.correctAnswers / userStats.questionsAnswered || 0.5;
       const result = await mlService.predictPerformance(
@@ -135,7 +145,11 @@ export const MLDashboard: React.FC<MLDashboardProps> = ({
 
   const handleVisualize = async () => {
     if (!isInitialized) return;
-    await mlService.visualizeModelPerformance();
+    try {
+      await mlService.visualizeModelPerformance();
+    } catch (error) {
+      console.warn('Model visualization skipped:', error);
+    }
   };
 
   return (
