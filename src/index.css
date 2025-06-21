@@ -1,3 +1,94 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Accessibility styles */
+:root {
+  --primary-color: #3B82F6;
+  --secondary-color: #F59E0B;
+  --text-color: #FFFFFF;
+  --background-color: #1F2937;
+  --card-background: #374151;
+}
+
+/* High contrast mode */
+.high-contrast {
+  --primary-color: #FFFFFF;
+  --secondary-color: #FFFF00;
+  --text-color: #FFFFFF;
+  --background-color: #000000;
+  --card-background: #222222;
+}
+
+/* Large text mode */
+.large-text {
+  font-size: 120%;
+  line-height: 1.5;
+}
+
+.large-text h1 {
+  font-size: 2.5rem;
+}
+
+.large-text h2 {
+  font-size: 2rem;
+}
+
+.large-text h3 {
+  font-size: 1.75rem;
+}
+
+.large-text button,
+.large-text a {
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+}
+
+/* Reduced motion */
+.reduce-motion * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Focus styles for keyboard navigation */
+*:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Skip to content link for keyboard users */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-to-content:focus {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  background: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  z-index: 9999;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

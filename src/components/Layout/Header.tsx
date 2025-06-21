@@ -2,6 +2,7 @@ import React from 'react';
 import { User, Coins, Trophy, Settings, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { User as UserType } from '../../types';
+import { AccessibilityMenu } from '../A11y/AccessibilityMenu';
 
 interface HeaderProps {
   user: UserType;
@@ -38,20 +39,26 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
           <div className="flex items-center space-x-6">
             {/* SAT Resources Button */}
             {onOpenSATResources && (
-              <motion.button
-                onClick={onOpenSATResources}
-                className="flex items-center space-x-2 bg-indigo-600/20 px-4 py-2 rounded-full border border-indigo-600/30 hover:bg-indigo-600/30 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <BookOpen className="w-4 h-4 text-indigo-400" />
-                <span className="text-indigo-200 font-medium text-sm">SAT Prep</span>
-              </motion.button>
+              <div className="flex items-center space-x-2">
+                <motion.button
+                  onClick={onOpenSATResources}
+                  className="flex items-center space-x-2 bg-indigo-600/20 px-4 py-2 rounded-full border border-indigo-600/30 hover:bg-indigo-600/30 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label="Open SAT preparation resources"
+                >
+                  <BookOpen className="w-4 h-4 text-indigo-400" />
+                  <span className="text-indigo-200 font-medium text-sm">SAT Prep</span>
+                </motion.button>
+                
+                <AccessibilityMenu />
+              </div>
             )}
             
             {/* Coins */}
             <motion.div 
-              className="flex items-center space-x-2 bg-casino-gold-600/20 px-4 py-2 rounded-full border border-casino-gold-600/30"
+              className="flex items-center space-x-2 bg-casino-gold-600/20 px-4 py-2 rounded-full border border-casino-gold-600/30" 
+              aria-label={`${user.coins.toLocaleString()} coins`}
               whileHover={{ scale: 1.05, backgroundColor: 'rgba(251, 191, 36, 0.3)' }}
             >
               <Coins className="w-5 h-5 text-casino-gold-400" />
@@ -63,6 +70,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
             {/* XP Level */}
             <motion.div 
               className="flex items-center space-x-2 bg-casino-green-600/20 px-4 py-2 rounded-full border border-casino-green-600/30"
+              aria-label={`Level ${user.level}`}
               whileHover={{ scale: 1.05, backgroundColor: 'rgba(34, 197, 94, 0.3)' }}
             >
               <Trophy className="w-5 h-5 text-casino-green-400" />
@@ -74,15 +82,22 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
             {/* User Profile */}
             <motion.div 
               className="flex items-center space-x-3 bg-gray-800/50 px-4 py-2 rounded-full border border-gray-700/50"
+              aria-label={`User profile: ${user.name}`}
               whileHover={{ scale: 1.05, backgroundColor: 'rgba(31, 41, 55, 0.7)' }}
             >
               <img
                 src={user.avatar}
                 alt={user.name}
+                role="presentation"
                 className="w-8 h-8 rounded-full border-2 border-casino-gold-400"
               />
               <span className="text-white font-medium font-body">{user.name}</span>
-              <Settings className="w-4 h-4 text-gray-400 hover:text-white transition-colors cursor-pointer" />
+              <Settings 
+                className="w-4 h-4 text-gray-400 hover:text-white transition-colors cursor-pointer" 
+                aria-label="Open settings"
+                role="button"
+                tabIndex={0}
+              />
             </motion.div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Header } from './components/Layout/Header';
 import { CasinoTable } from './components/Casino/CasinoTable';
@@ -17,6 +17,8 @@ import { NewsletterSignup } from './components/Marketing/NewsletterSignup';
 import { ConstantContactIntegration } from './components/Marketing/ConstantContactIntegration';
 import { SATResources } from './components/Resources/SATResources';
 import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp, Brain, Cpu } from 'lucide-react';
+import { initCapacitor, hapticImpact } from './capacitorApp';
+import { useAccessibility } from './components/A11y/AccessibilityProvider';
 
 function App() {
   const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer' | 'subscription' | 'checkout' | 'newsletter' | 'marketing' | 'sat-resources' | 'ai-dashboard'>('lobby');
@@ -25,6 +27,15 @@ function App() {
   const [currentBobMessage, setCurrentBobMessage] = useState<BobMessage | null>(null);
   const [bobMessageHistory, setBobMessageHistory] = useState<BobMessage[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<{ planId: string; priceId: string } | null>(null);
+  const { reduceMotion } = useAccessibility();
+  
+  // Initialize Capacitor
+  useEffect(() => {
+    // Only initialize Capacitor in production or when running as a native app
+    if (window.location.hostname !== 'localhost' || window.Capacitor?.isNativePlatform()) {
+      initCapacitor();
+    }
+  }, []);
 
   const triggerBobMessage = (type: BobMessage['type'], customMessage?: string) => {
     const bobMessages = {
@@ -86,12 +97,14 @@ function App() {
 
   const handlePlayGame = (game: Game) => {
     setSelectedGame(game);
+    hapticImpact();
     setCurrentView('quiz');
     triggerBobMessage('tips', `Starting ${game.title}! Remember to read each question carefully. Good luck!`);
   };
 
   const handleJoinTournament = (tournament: Tournament) => {
     console.log('Joining tournament:', tournament.title);
+    hapticImpact();
     triggerBobMessage('celebration', `Joined tournament: ${tournament.title}! Show them what you've got!`);
   };
 
@@ -119,6 +132,7 @@ function App() {
 
   const handleOpenSchemaDesigner = () => {
     setCurrentView('schema-designer');
+    hapticImpact();
     triggerBobMessage('tips', 'Welcome to the Schema Designer! Learn database design fundamentals while creating professional schemas.');
   };
 
@@ -128,6 +142,7 @@ function App() {
 
   const handleOpenSubscription = () => {
     setCurrentView('subscription');
+    hapticImpact();
     triggerBobMessage('tips', 'Unlock your full learning potential with our premium plans!');
   };
 
@@ -286,15 +301,16 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <a href="#main-content" className="skip-to-content">Skip to content</a>
       <Header user={user} onOpenSATResources={handleOpenSATResources} />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: reduceMotion ? 0 : 0.6 }}
         >
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-casino-gold-400 via-casino-gold-300 to-casino-gold-500 mb-4">
             Welcome to Scholars Casino
@@ -307,8 +323,9 @@ function App() {
           <motion.button
             onClick={handleOpenSchemaDesigner}
             className="mt-4 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center space-x-2 mx-auto"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={reduceMotion ? {} : { scale: 1.05 }}
+            whileTap={reduceMotion ? {} : { scale: 0.95 }}
+            aria-label="Try database schema designer"
           >
             <span>🗄️</span>
             <span>Try Schema Designer</span>
@@ -319,8 +336,9 @@ function App() {
             <motion.button
               onClick={handleOpenSubscription}
               className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={reduceMotion ? {} : { scale: 1.05 }}
+              whileTap={reduceMotion ? {} : { scale: 0.95 }}
+              aria-label="Upgrade to Pro subscription"
             >
               <span>👑</span>
               <span>Upgrade to Pro</span>
@@ -329,8 +347,9 @@ function App() {
             <motion.button
               onClick={handleOpenNewsletter}
               className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={reduceMotion ? {} : { scale: 1.05 }}
+              whileTap={reduceMotion ? {} : { scale: 0.95 }}
+              aria-label="Join our newsletter"
             >
               <span>📧</span>
               <span>Join Newsletter</span>
@@ -339,8 +358,9 @@ function App() {
             <motion.button
               onClick={handleOpenMarketing}
               className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={reduceMotion ? {} : { scale: 1.05 }}
+              whileTap={reduceMotion ? {} : { scale: 0.95 }}
+              aria-label="Open marketing dashboard"
             >
               <span>📊</span>
               <span>Marketing Dashboard</span>
@@ -349,8 +369,9 @@ function App() {
             <motion.button
               onClick={handleOpenSATResources}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={reduceMotion ? {} : { scale: 1.05 }}
+              whileTap={reduceMotion ? {} : { scale: 0.95 }}
+              aria-label="View SAT resources"
             >
               <span>📚</span>
               <span>SAT Resources</span>
@@ -361,8 +382,9 @@ function App() {
           <motion.button
             onClick={handleOpenAIDashboard}
             className="mt-4 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center space-x-2 mx-auto"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={reduceMotion ? {} : { scale: 1.05 }}
+            whileTap={reduceMotion ? {} : { scale: 0.95 }}
+            aria-label="Open AI and machine learning learning intelligence"
           >
             <Brain className="w-5 h-5" />
             <span>AI & ML Learning Intelligence</span>
