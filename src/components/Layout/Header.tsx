@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources }) => {
             </div>
             <div>
               <h1 className="text-2xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-casino-gold-400 to-casino-gold-200">
-                Scholars Table
+                Scholars Casino
               </h1>
               <p className="text-xs text-gray-400 font-body">Where Education Meets Gaming</p>
             </div>

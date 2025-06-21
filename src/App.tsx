@@ -297,7 +297,7 @@ function App() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-casino-gold-400 via-casino-gold-300 to-casino-gold-500 mb-4">
-            Welcome to Scholars Table
+            Welcome to Scholars Casino
           </h1>
           <p className="text-xl text-gray-300 font-body max-w-2xl mx-auto">
             Where knowledge meets excitement! Play educational games, join tournaments, and compete with students worldwide.

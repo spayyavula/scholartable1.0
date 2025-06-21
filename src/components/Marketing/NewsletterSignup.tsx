@@ -130,7 +130,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
           >
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
           </motion.div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">Welcome to the Community!</h3>
+          <h3 className="text-xl font-bold text-gray-800 mb-2">Welcome to the Scholars Casino Community!</h3>
           <p className="text-gray-600 mb-4">
             Thank you for subscribing! Check your email for a welcome message with exclusive content.
           </p>
@@ -157,7 +157,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
           <Mail className="w-8 h-8 text-blue-600" />
         </div>
         <h3 className="text-2xl font-bold text-gray-800 mb-2">
-          Join 10,000+ Learners
+          Join 10,000+ Casino Learners
         </h3>
         <p className="text-gray-600">
           Get exclusive study tips, early access to new features, and special offers
