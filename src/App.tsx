@@ -19,6 +19,7 @@ import { SATResources } from './components/Resources/SATResources';
 import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp, Brain, Cpu } from 'lucide-react';
 import { initCapacitor, hapticImpact } from './capacitorApp';
 import { useAccessibility } from './components/A11y/AccessibilityProvider';
+import { Footer } from './components/Layout/Footer';
 
 function App() {
   const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer' | 'subscription' | 'checkout' | 'newsletter' | 'marketing' | 'sat-resources' | 'ai-dashboard'>('lobby');
@@ -643,6 +644,9 @@ function App() {
         messageHistory={bobMessageHistory}
         onTriggerMessage={triggerBobMessage}
       />
+      
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
