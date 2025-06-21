@@ -88,8 +88,6 @@ export const MLDashboard: React.FC<MLDashboardProps> = ({
     }
   };
 
-  const initializeML = async () => {
-
   const generateMockLearningData = (): LearningData[] => {
     const subjects = ['mathematics', 'physics', 'chemistry', 'javascript', 'python'];
     const difficulties = ['basic', 'intermediate', 'advanced'];
