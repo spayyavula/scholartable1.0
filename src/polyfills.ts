@@ -5,6 +5,13 @@ if (typeof globalThis === 'undefined') {
   (window as any).globalThis = window;
 }
 
+// Mock for TensorFlow.js chained ops
+// This is used as a fallback when the actual module fails to load
+export default {
+  // Empty implementation that does nothing
+  // This prevents errors when the real module can't be loaded
+};
+
 // Ensure TextEncoder is available
 if (typeof TextEncoder === 'undefined') {
   console.warn('TextEncoder not available in this browser');
@@ -34,5 +41,3 @@ window.addEventListener('unhandledrejection', event => {
   // Prevent the default browser behavior (console error)
   event.preventDefault();
 });
-
-export {};

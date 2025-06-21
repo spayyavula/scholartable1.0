@@ -4,32 +4,14 @@ let tf: any;
 // Safely import TensorFlow.js with multiple fallback strategies
 async function importTensorFlow() {
   try {
-    // First attempt: dynamic import with error handling
-    let tfModule = null;
-    
-    try {
-      tfModule = await import('@tensorflow/tfjs');
-    } catch (importError) {
-      console.warn('Primary TensorFlow.js import failed, trying fallback:', importError);
-      
-      // Second attempt: try importing core only
-      try {
-        tfModule = await import('@tensorflow/tfjs-core');
-      } catch (coreError) {
-        console.warn('TensorFlow.js core import also failed:', coreError);
-        return false;
-      }
-    }
-    
-    if (tfModule) {
-      tf = tfModule;
-      console.log('TensorFlow.js imported successfully');
-      return true;
-    }
-    return false;
+    // Use a simpler import approach with better error handling
+    const tfModule = await import('@tensorflow/tfjs');
+    tf = tfModule;
+    console.log('TensorFlow.js imported successfully');
+    return true;
   } catch (error) {
-    // Final fallback if all import strategies fail
-    console.error('Failed to import TensorFlow.js:', error);
+    // Graceful fallback if import fails
+    console.warn('Failed to import TensorFlow.js, using fallback mode:', error);
     return false;
   }
 }
