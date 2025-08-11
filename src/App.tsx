@@ -16,6 +16,7 @@ import { StripeCheckout } from './components/Subscription/StripeCheckout';
 import { NewsletterSignup } from './components/Marketing/NewsletterSignup';
 import { ConstantContactIntegration } from './components/Marketing/ConstantContactIntegration';
 import { SATResources } from './components/Resources/SATResources';
+import { LandingPageContent } from './components/SEO/LandingPageContent';
 import { Trophy, Users, Gamepad2, Target, BookOpen, Award, Zap, TrendingUp, Brain, Cpu } from 'lucide-react';
 import { initCapacitor, hapticImpact } from './capacitorApp';
 import { useAccessibility } from './components/A11y/AccessibilityProvider';
@@ -23,7 +24,6 @@ import { Footer } from './components/Layout/Footer';
 import { MobileNavBar } from './components/Layout/MobileNavBar';
 
 function App() {
-import { LandingPageContent } from './components/SEO/LandingPageContent';
   const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer' | 'subscription' | 'checkout' | 'newsletter' | 'marketing' | 'sat-resources' | 'ai-dashboard'>('lobby');
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [user, setUser] = useState(mockUser);
