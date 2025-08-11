@@ -8,6 +8,32 @@
   to = "/.netlify/functions/constant-contact/:splat"
   status = 200
 
+# SEO-friendly redirects for subject pages
+[[redirects]]
+  from = "/mathematics"
+  to = "/?subject=mathematics"
+  status = 200
+
+[[redirects]]
+  from = "/physics"
+  to = "/?subject=physics"
+  status = 200
+
+[[redirects]]
+  from = "/chemistry"
+  to = "/?subject=chemistry"
+  status = 200
+
+[[redirects]]
+  from = "/programming"
+  to = "/?subject=programming"
+  status = 200
+
+[[redirects]]
+  from = "/blog"
+  to = "/?view=blog"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -15,6 +41,26 @@
 
 [build.environment]
   NODE_VERSION = "20.10.0"
+
+# Headers for SEO and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain"
 
 # Environment variables should be set in Netlify UI under:
 # Site settings > Build & deploy > Environment variables

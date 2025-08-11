@@ -72,6 +72,11 @@ export const Footer: React.FC = () => {
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
+                <a href="/blog" className="text-gray-400 hover:text-white transition-colors text-sm flex items-center">
+                  <span className="mr-2">•</span> Educational Blog
+                </a>
+              </li>
+              <li>
                 <a href="/about" className="text-gray-400 hover:text-white transition-colors text-sm flex items-center">
                   <span className="mr-2">•</span> About Us
                 </a>

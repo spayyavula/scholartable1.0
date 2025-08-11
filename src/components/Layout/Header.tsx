@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Coins, Trophy, Settings, BookOpen, Menu } from 'lucide-react';
+import { User, Coins, Trophy, Settings, BookOpen, Menu, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { User as UserType } from '../../types';
 import { AccessibilityMenu } from '../A11y/AccessibilityMenu';
@@ -66,6 +66,17 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources, onNavi
             {/* SAT Resources Button */}
             {onOpenSATResources && (
               <div className="hidden md:flex items-center space-x-2">
+                <motion.button
+                  onClick={() => handleNavigate('blog')}
+                  className="flex items-center space-x-2 bg-orange-600/20 px-4 py-2 rounded-full border border-orange-600/30 hover:bg-orange-600/30 transition-colors"
+                  whileHover={reduceMotion ? {} : { scale: 1.05 }}
+                  whileTap={reduceMotion ? {} : { scale: 0.95 }}
+                  aria-label="Read educational blog"
+                >
+                  <FileText className="w-4 h-4 text-orange-400" />
+                  <span className="text-orange-200 font-medium text-sm">Blog</span>
+                </motion.button>
+                
                 <motion.button
                   onClick={onOpenSATResources}
                   className="flex items-center space-x-2 bg-indigo-600/20 px-4 py-2 rounded-full border border-indigo-600/30 hover:bg-indigo-600/30 transition-colors"

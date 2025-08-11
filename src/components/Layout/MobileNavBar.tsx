@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Trophy, BookOpen, Brain, User } from 'lucide-react';
+import { Home, Trophy, BookOpen, Brain, User, FileText } from 'lucide-react';
 import { hapticImpact } from '../../capacitorApp';
 
 interface MobileNavBarProps {
@@ -15,7 +15,7 @@ export const MobileNavBar: React.FC<MobileNavBarProps> = ({ currentView, onNavig
 
   const navItems = [
     { icon: Home, label: 'Home', view: 'lobby' },
-    { icon: Trophy, label: 'Tournaments', view: 'tournaments' },
+    { icon: FileText, label: 'Blog', view: 'blog' },
     { icon: BookOpen, label: 'Learn', view: 'sat-resources' },
     { icon: Brain, label: 'AI', view: 'ai-dashboard' },
     { icon: User, label: 'Profile', view: 'profile' }
