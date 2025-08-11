@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://scholarscasino.com/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Disallow admin or sensitive areas (if any)
+# Disallow: /admin/
+# Disallow: /api/
+
+# Allow all educational content
+Allow: /mathematics
+Allow: /physics
+Allow: /chemistry
+Allow: /programming
+Allow: /tournaments
+Allow: /schema-designer
+Allow: /sat-resources
+Allow: /ai-dashboard
