@@ -51,7 +51,7 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
 
   return (
     <motion.div
-      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-xl border border-gray-700/50 overflow-hidden hover:border-casino-gold-500/50 transition-all duration-300"
+      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-xl border border-gray-700/50 overflow-hidden hover:border-casino-gold-500/50 transition-all duration-300 touch-manipulation"
       whileHover={reduceMotion ? {} : { scale: 1.05, y: -5 }}
       whileTap={reduceMotion ? {} : { scale: 0.98 }}
       initial={{ opacity: 0, y: 20 }}
@@ -59,34 +59,34 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
       transition={{ duration: reduceMotion ? 0.1 : 0.5 }}
     >
       {/* Card Header */}
-      <div className="p-6 pb-4">
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className="text-4xl">{game.icon}</div>
-            <div className="text-2xl">{getSubjectEmoji(game.subject)}</div>
+      <div className="p-4 sm:p-6 pb-3 sm:pb-4">
+        <div className="flex items-start justify-between mb-3 sm:mb-4">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="text-3xl sm:text-4xl">{game.icon}</div>
+            <div className="text-xl sm:text-2xl">{getSubjectEmoji(game.subject)}</div>
             <span className="sr-only">{game.subject} game</span>
           </div>
-          <div className={`px-3 py-1 rounded-full text-xs font-semibold ${getDifficultyColor(game.difficulty)}`}>
+          <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${getDifficultyColor(game.difficulty)}`}>
             {getDifficultyLabel(game.difficulty)}
           </div>
         </div>
 
-        <h3 className="text-xl font-heading font-semibold text-white mb-2">
+        <h3 className="text-lg sm:text-xl font-heading font-semibold text-white mb-2 leading-tight">
           {game.title}
         </h3>
-        <p className="text-gray-400 text-sm font-body leading-relaxed mb-4">
+        <p className="text-gray-400 text-sm font-body leading-relaxed mb-3 sm:mb-4">
           {game.description}
         </p>
 
         {/* Game Stats */}
-        <div className="flex items-center justify-between text-sm text-gray-300 mb-6">
-          <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-between text-xs sm:text-sm text-gray-300 mb-4 sm:mb-6">
+          <div className="flex items-center space-x-3 sm:space-x-4">
             <div className="flex items-center space-x-1">
-              <Coins className="w-4 h-4 text-casino-gold-400" />
+              <Coins className="w-3 h-3 sm:w-4 sm:h-4 text-casino-gold-400" />
               <span>{game.minBet}-{game.maxBet}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Star className="w-4 h-4 text-yellow-400" />
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
               <span className="capitalize">{game.subject}</span>
             </div>
           </div>
@@ -95,12 +95,12 @@ export const GameCard: React.FC<GameCardProps> = ({ game, onPlay }) => {
         {/* Play Button */}
         <motion.button
           onClick={handlePlay}
-          className="w-full bg-gradient-to-r from-casino-gold-500 to-casino-gold-600 hover:from-casino-gold-400 hover:to-casino-gold-500 text-gray-900 font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg"
+          className="w-full bg-gradient-to-r from-casino-gold-500 to-casino-gold-600 hover:from-casino-gold-400 hover:to-casino-gold-500 text-gray-900 font-semibold py-3 sm:py-4 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg text-sm sm:text-base touch-manipulation min-h-[44px]"
           whileHover={reduceMotion ? {} : { scale: 1.02 }}
           whileTap={reduceMotion ? {} : { scale: 0.98 }}
           aria-label={`Play ${game.title} game`}
         >
-          <Play className="w-5 h-5" />
+          <Play className="w-4 h-4 sm:w-5 sm:h-5" />
           <span>Play Now</span>
         </motion.button>
       </div>

@@ -32,7 +32,7 @@ export const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, onJo
 
   return (
     <motion.div
-      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-xl border border-gray-700/50 overflow-hidden relative"
+      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl shadow-xl border border-gray-700/50 overflow-hidden relative touch-manipulation"
       whileHover={{ scale: 1.02, y: -3 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -40,18 +40,18 @@ export const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, onJo
     >
       {/* Sponsored Badge */}
       {tournament.isSponsored && (
-        <div className="absolute top-4 right-4 bg-gradient-to-r from-casino-gold-500 to-casino-gold-600 text-gray-900 px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+        <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-gradient-to-r from-casino-gold-500 to-casino-gold-600 text-gray-900 px-2 sm:px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
           SPONSORED
         </div>
       )}
 
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <Trophy className="w-8 h-8 text-casino-gold-400" />
+        <div className="flex items-start justify-between mb-3 sm:mb-4">
+          <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+            <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-casino-gold-400 flex-shrink-0" />
             <div>
-              <h3 className="text-lg font-heading font-semibold text-white">
+              <h3 className="text-base sm:text-lg font-heading font-semibold text-white leading-tight">
                 {tournament.title}
               </h3>
               {tournament.sponsor && (
@@ -61,44 +61,44 @@ export const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, onJo
               )}
             </div>
           </div>
-          <div className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(tournament.status)}`}>
+          <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(tournament.status)} flex-shrink-0`}>
             {tournament.status.toUpperCase()}
           </div>
         </div>
 
-        <p className="text-gray-400 text-sm font-body mb-4">
+        <p className="text-gray-400 text-sm font-body mb-3 sm:mb-4 leading-relaxed">
           {tournament.description}
         </p>
 
         {/* Tournament Info */}
-        <div className="space-y-3 mb-6">
+        <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
           <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-2 text-gray-300">
-              <Coins className="w-4 h-4 text-casino-gold-400" />
+            <div className="flex items-center space-x-1 sm:space-x-2 text-gray-300">
+              <Coins className="w-3 h-3 sm:w-4 sm:h-4 text-casino-gold-400" />
               <span>Prize Pool</span>
             </div>
-            <span className="text-casino-gold-400 font-semibold">
+            <span className="text-casino-gold-400 font-semibold text-sm">
               {tournament.prize.toLocaleString()} coins
             </span>
           </div>
 
           <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-2 text-gray-300">
-              <Users className="w-4 h-4 text-blue-400" />
+            <div className="flex items-center space-x-1 sm:space-x-2 text-gray-300">
+              <Users className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
               <span>Participants</span>
             </div>
-            <span className="text-blue-400 font-semibold">
+            <span className="text-blue-400 font-semibold text-sm">
               {tournament.participants.length}
             </span>
           </div>
 
           {tournament.status === 'upcoming' && (
             <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center space-x-2 text-gray-300">
-                <Clock className="w-4 h-4 text-green-400" />
+              <div className="flex items-center space-x-1 sm:space-x-2 text-gray-300">
+                <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
                 <span>Starts in</span>
               </div>
-              <span className="text-green-400 font-semibold">
+              <span className="text-green-400 font-semibold text-sm">
                 {getTimeUntilStart()}
               </span>
             </div>
@@ -107,15 +107,15 @@ export const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, onJo
 
         {/* Leaderboard Preview */}
         {tournament.participants.length > 0 && (
-          <div className="mb-6">
-            <h4 className="text-sm font-semibold text-gray-300 mb-2">Top Players</h4>
-            <div className="space-y-2">
+          <div className="mb-4 sm:mb-6">
+            <h4 className="text-xs sm:text-sm font-semibold text-gray-300 mb-2">Top Players</h4>
+            <div className="space-y-1 sm:space-y-2">
               {tournament.participants
                 .sort((a, b) => b.score - a.score)
                 .slice(0, 3)
                 .map((participant, index) => (
-                  <div key={participant.userId} className="flex items-center space-x-3">
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                  <div key={participant.userId} className="flex items-center space-x-2 sm:space-x-3">
+                    <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                       index === 0 ? 'bg-casino-gold-500 text-gray-900' :
                       index === 1 ? 'bg-gray-400 text-gray-900' :
                       'bg-yellow-600 text-white'
@@ -125,10 +125,10 @@ export const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, onJo
                     <img
                       src={participant.avatar}
                       alt={participant.name}
-                      className="w-6 h-6 rounded-full"
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full"
                     />
-                    <span className="text-sm text-gray-300 flex-1">{participant.name}</span>
-                    <span className="text-sm font-semibold text-casino-gold-400">
+                    <span className="text-xs sm:text-sm text-gray-300 flex-1 truncate">{participant.name}</span>
+                    <span className="text-xs sm:text-sm font-semibold text-casino-gold-400">
                       {participant.score}
                     </span>
                   </div>
@@ -141,7 +141,7 @@ export const TournamentCard: React.FC<TournamentCardProps> = ({ tournament, onJo
         <motion.button
           onClick={() => onJoin(tournament)}
           disabled={tournament.status === 'completed'}
-          className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 ${
+          className={`w-full py-3 sm:py-4 px-4 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base touch-manipulation min-h-[44px] ${
             tournament.status === 'completed'
               ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
               : tournament.status === 'active'

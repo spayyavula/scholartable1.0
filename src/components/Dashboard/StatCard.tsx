@@ -19,27 +19,27 @@ export const StatCard: React.FC<StatCardProps> = ({ title, value, icon: Icon, co
   
   return (
     <motion.div
-      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 sm:p-6 border border-gray-700/50 shadow-xl"
+      className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-3 sm:p-4 lg:p-6 border border-gray-700/50 shadow-xl touch-manipulation"
       whileHover={reduceMotion ? {} : { scale: 1.02, y: -2 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: reduceMotion ? 0.1 : 0.5 }}
     >
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <div className={`p-3 rounded-xl ${color}`}>
-            <Icon className="w-6 h-6 text-white" />
+        <div className="flex items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+          <div className={`p-2 sm:p-3 rounded-xl ${color} flex-shrink-0`}>
+            <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </div>
           <div>
-            <p className="text-gray-400 text-sm font-body">{title}</p>
-            <p className="text-2xl font-heading font-bold text-white">
+            <p className="text-gray-400 text-xs sm:text-sm font-body">{title}</p>
+            <p className="text-xl sm:text-2xl font-heading font-bold text-white">
               {typeof value === 'number' ? value.toLocaleString() : value}
             </p>
           </div>
         </div>
         
         {trend && (
-          <div className={`flex items-center space-x-1 text-sm ${
+          <div className={`flex items-center space-x-1 text-xs sm:text-sm flex-shrink-0 ${
             trend.isPositive ? 'text-green-400' : 'text-red-400'
           }`}>
             <span>{trend.isPositive ? '↗' : '↘'}</span>

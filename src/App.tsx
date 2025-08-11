@@ -344,7 +344,7 @@ function App() {
       <main id="main-content" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: reduceMotion ? 0 : 0.6 }}
@@ -354,7 +354,7 @@ function App() {
           {/* Schema Designer CTA */}
           <motion.button
             onClick={handleOpenSchemaDesigner}
-            className="mt-4 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center space-x-2 mx-auto"
+            className="mt-4 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-semibold py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 flex items-center space-x-2 mx-auto text-sm sm:text-base touch-manipulation"
             whileHover={reduceMotion ? {} : { scale: 1.05 }}
             whileTap={reduceMotion ? {} : { scale: 0.95 }}
             aria-label="Try database schema designer"
@@ -364,10 +364,10 @@ function App() {
           </motion.button>
           
           {/* Action Buttons Row 1 */}
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap justify-center gap-3 sm:gap-4 mt-6 px-4">
             <motion.button
               onClick={handleOpenSubscription}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base touch-manipulation"
               whileHover={reduceMotion ? {} : { scale: 1.05 }}
               whileTap={reduceMotion ? {} : { scale: 0.95 }}
               aria-label="Upgrade to Pro subscription"
@@ -378,7 +378,7 @@ function App() {
             
             <motion.button
               onClick={handleOpenNewsletter}
-              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
+              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base touch-manipulation"
               whileHover={reduceMotion ? {} : { scale: 1.05 }}
               whileTap={reduceMotion ? {} : { scale: 0.95 }}
               aria-label="Join our newsletter"
@@ -389,7 +389,7 @@ function App() {
             
             <motion.button
               onClick={handleOpenMarketing}
-              className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
+              className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base touch-manipulation"
               whileHover={reduceMotion ? {} : { scale: 1.05 }}
               whileTap={reduceMotion ? {} : { scale: 0.95 }}
               aria-label="Open marketing dashboard"
@@ -400,7 +400,7 @@ function App() {
             
             <motion.button
               onClick={handleOpenSATResources}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 flex items-center space-x-2"
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base touch-manipulation sm:col-span-2 lg:col-span-1"
               whileHover={reduceMotion ? {} : { scale: 1.05 }}
               whileTap={reduceMotion ? {} : { scale: 0.95 }}
               aria-label="View SAT resources"
@@ -413,7 +413,7 @@ function App() {
           {/* AI & ML Button */}
           <motion.button
             onClick={handleOpenAIDashboard}
-            className="mt-4 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center space-x-2 mx-auto"
+            className="mt-4 bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-semibold py-3 px-4 sm:px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 mx-auto text-sm sm:text-base touch-manipulation max-w-xs sm:max-w-none"
             whileHover={reduceMotion ? {} : { scale: 1.05 }}
             whileTap={reduceMotion ? {} : { scale: 0.95 }}
             aria-label="Open AI and machine learning learning intelligence"
@@ -424,7 +424,7 @@ function App() {
         </motion.div>
 
         {/* Statistics Dashboard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 px-4">
           {stats.map((stat, index) => (
             <motion.div
               key={stat.title}
@@ -437,9 +437,9 @@ function App() {
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Main Gaming Area */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Difficulty Categories */}
             {['basic', 'intermediate', 'advanced'].map((difficulty, categoryIndex) => {
               const categoryGames = mockGames.filter(game => game.difficulty === difficulty);
@@ -471,29 +471,29 @@ function App() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
                 >
-                  <CasinoTable className="p-8">
-                    <div className="flex items-center justify-between mb-8">
-                      <div className="flex items-center space-x-4">
-                        <div className={`p-4 ${categoryColors[difficulty as keyof typeof categoryColors].bg} rounded-xl shadow-lg`}>
-                          <span className="text-3xl">{categoryIcons[difficulty as keyof typeof categoryIcons]}</span>
+                  <CasinoTable className="p-4 sm:p-6 lg:p-8">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8">
+                      <div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-0">
+                        <div className={`p-3 sm:p-4 ${categoryColors[difficulty as keyof typeof categoryColors].bg} rounded-xl shadow-lg`}>
+                          <span className="text-2xl sm:text-3xl">{categoryIcons[difficulty as keyof typeof categoryIcons]}</span>
                         </div>
                         <div>
-                          <h2 className="text-3xl font-heading font-bold text-white">
+                          <h2 className="text-2xl sm:text-3xl font-heading font-bold text-white">
                             {categoryTitles[difficulty as keyof typeof categoryTitles]}
                           </h2>
-                          <p className="text-casino-green-200">
+                          <p className="text-casino-green-200 text-sm sm:text-base">
                             {categoryDescriptions[difficulty as keyof typeof categoryDescriptions]}
                           </p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-casino-green-200 text-sm">Available Games</p>
-                        <p className="text-2xl font-bold text-white">{categoryGames.length}</p>
+                      <div className="text-center sm:text-right">
+                        <p className="text-casino-green-200 text-xs sm:text-sm">Available Games</p>
+                        <p className="text-xl sm:text-2xl font-bold text-white">{categoryGames.length}</p>
                       </div>
                     </div>
 
                     {categoryGames.length > 0 ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         {categoryGames.map((game, index) => (
                           <motion.div
                             key={game.id}
@@ -510,11 +510,11 @@ function App() {
                       </div>
                     ) : (
                       <div className="text-center py-12">
-                        <div className="text-6xl mb-4">🚧</div>
-                        <h3 className="text-xl font-semibold text-gray-300 mb-2">
+                        <div className="text-4xl sm:text-6xl mb-3 sm:mb-4">🚧</div>
+                        <h3 className="text-lg sm:text-xl font-semibold text-gray-300 mb-2">
                           Coming Soon!
                         </h3>
-                        <p className="text-gray-400">
+                        <p className="text-gray-400 text-sm sm:text-base">
                           More {difficulty} level games are being prepared for you.
                         </p>
                       </div>
@@ -525,34 +525,34 @@ function App() {
             })}
 
             {/* Learning Progress */}
-            <CasinoTable className="p-8">
-              <div className="flex items-center space-x-3 mb-8">
-                <div className="p-3 bg-blue-500 rounded-xl">
-                  <BookOpen className="w-8 h-8 text-white" />
+            <CasinoTable className="p-4 sm:p-6 lg:p-8">
+              <div className="flex items-center space-x-2 sm:space-x-3 mb-6 sm:mb-8">
+                <div className="p-2 sm:p-3 bg-blue-500 rounded-xl">
+                  <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <div className="p-3 bg-purple-500 rounded-xl">
-                  <Brain className="w-8 h-8 text-white" />
+                <div className="p-2 sm:p-3 bg-purple-500 rounded-xl">
+                  <Brain className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-heading font-bold text-white">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-heading font-bold text-white">
                     Learning Progress
                   </h2>
-                  <p className="text-casino-green-200">
+                  <p className="text-casino-green-200 text-sm sm:text-base">
                     Track your educational journey
                   </p>
                   <div className="mt-2">
                     <button 
                       onClick={handleOpenAIDashboard}
-                      className="text-sm bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded-lg transition-colors flex items-center space-x-1"
+                      className="text-xs sm:text-sm bg-purple-600 hover:bg-purple-500 text-white px-2 sm:px-3 py-1 rounded-lg transition-colors flex items-center space-x-1 touch-manipulation"
                     >
-                      <Cpu className="w-3 h-3" />
+                      <Cpu className="w-3 h-3 sm:w-4 sm:h-4" />
                       <span>View AI Analytics</span>
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                 {[
                   { name: 'Mathematics', emoji: '🧮', color: 'bg-green-500' },
                   { name: 'Physics', emoji: '⚡', color: 'bg-blue-500' },
@@ -564,23 +564,23 @@ function App() {
                 ].map((subject, index) => (
                   <motion.div
                     key={subject.name}
-                    className="bg-gray-800/50 rounded-xl p-6 border border-gray-700/30"
+                    className="bg-gray-800/50 rounded-xl p-3 sm:p-4 lg:p-6 border border-gray-700/30"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     <div className="text-center">
-                      <div className="text-4xl mb-3">
+                      <div className="text-2xl sm:text-3xl lg:text-4xl mb-2 sm:mb-3">
                         {subject.emoji}
                       </div>
-                      <h3 className="text-lg font-semibold text-white mb-2">{subject.name}</h3>
-                      <div className="bg-gray-700 rounded-full h-2 mb-2">
+                      <h3 className="text-sm sm:text-base lg:text-lg font-semibold text-white mb-2 leading-tight">{subject.name}</h3>
+                      <div className="bg-gray-700 rounded-full h-1.5 sm:h-2 mb-1 sm:mb-2">
                         <div 
                           className={`h-full rounded-full ${subject.color}`}
                           style={{ width: `${Math.random() * 80 + 20}%` }}
                         />
                       </div>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-xs sm:text-sm text-gray-400">
                         Level {Math.floor(Math.random() * 10) + 1}
                       </p>
                     </div>
@@ -591,24 +591,24 @@ function App() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {/* Active Tournaments */}
-            <CasinoTable className="p-6">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="p-2 bg-casino-red-500 rounded-lg">
-                  <Trophy className="w-6 h-6 text-white" />
+            <CasinoTable className="p-4 sm:p-6">
+              <div className="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-6">
+                <div className="p-2 bg-casino-red-500 rounded-lg flex-shrink-0">
+                  <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-heading font-bold text-white">
+                  <h3 className="text-lg sm:text-xl font-heading font-bold text-white">
                     Live Tournaments
                   </h3>
-                  <p className="text-casino-green-200 text-sm">
+                  <p className="text-casino-green-200 text-xs sm:text-sm">
                     Compete for prizes!
                   </p>
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {mockTournaments.slice(0, 2).map((tournament, index) => (
                   <motion.div
                     key={tournament.id}
@@ -626,36 +626,36 @@ function App() {
             </CasinoTable>
 
             {/* Recent Achievements */}
-            <CasinoTable className="p-6">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="p-2 bg-casino-gold-500 rounded-lg">
-                  <Award className="w-6 h-6 text-gray-900" />
+            <CasinoTable className="p-4 sm:p-6">
+              <div className="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-6">
+                <div className="p-2 bg-casino-gold-500 rounded-lg flex-shrink-0">
+                  <Award className="w-5 h-5 sm:w-6 sm:h-6 text-gray-900" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-heading font-bold text-white">
+                  <h3 className="text-lg sm:text-xl font-heading font-bold text-white">
                     Achievements
                   </h3>
-                  <p className="text-casino-green-200 text-sm">
+                  <p className="text-casino-green-200 text-xs sm:text-sm">
                     Your latest wins
                   </p>
                 </div>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {user.achievements.filter(a => a.earned).slice(0, 3).map((achievement, index) => (
                   <motion.div
                     key={achievement.id}
-                    className="flex items-center space-x-3 p-3 bg-gray-800/50 rounded-lg border border-gray-700/30"
+                    className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 bg-gray-800/50 rounded-lg border border-gray-700/30"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <div className="text-2xl">{achievement.icon}</div>
+                    <div className="text-xl sm:text-2xl flex-shrink-0">{achievement.icon}</div>
                     <div>
-                      <h4 className="text-white font-semibold text-sm">
+                      <h4 className="text-white font-semibold text-xs sm:text-sm">
                         {achievement.title}
                       </h4>
-                      <p className="text-gray-400 text-xs">
+                      <p className="text-gray-400 text-xs leading-tight">
                         {achievement.description}
                       </p>
                     </div>
@@ -666,6 +666,9 @@ function App() {
           </div>
         </div>
       </main>
+
+      {/* Mobile-specific bottom padding to account for mobile nav */}
+      <div className="h-20 md:hidden" />
 
       {/* Bob the Bot */}
       <BobTheBot

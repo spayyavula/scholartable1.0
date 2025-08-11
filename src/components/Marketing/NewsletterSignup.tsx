@@ -118,24 +118,24 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
   if (success) {
     return (
       <motion.div
-        className={`${inline ? 'bg-green-50 border border-green-200 rounded-lg p-6' : 'fixed inset-0 bg-black/80 flex items-center justify-center z-50'}`}
+        className={`${inline ? 'bg-green-50 border border-green-200 rounded-lg p-4 sm:p-6' : 'fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4'}`}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
       >
-        <div className={`${inline ? '' : 'bg-white rounded-2xl p-8 max-w-md w-full mx-4'} text-center`}>
+        <div className={`${inline ? '' : 'bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4'} text-center`}>
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
           >
-            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+            <CheckCircle className="w-12 h-12 sm:w-16 sm:h-16 text-green-500 mx-auto mb-3 sm:mb-4" />
           </motion.div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">Welcome to the Scholars Casino Community!</h3>
-          <p className="text-gray-600 mb-4">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2">Welcome to the Scholars Casino Community!</h3>
+          <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
             Thank you for subscribing! Check your email for a welcome message with exclusive content.
           </p>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <p className="text-sm text-blue-700">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+            <p className="text-xs sm:text-sm text-blue-700">
               🎁 <strong>Bonus:</strong> You'll receive a free study guide within the next 24 hours!
             </p>
           </div>
@@ -153,32 +153,32 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
     >
       {/* Header */}
       <div className="text-center">
-        <div className="bg-blue-100 rounded-full p-3 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-          <Mail className="w-8 h-8 text-blue-600" />
+        <div className="bg-blue-100 rounded-full p-3 w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 flex items-center justify-center">
+          <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
         </div>
-        <h3 className="text-2xl font-bold text-gray-800 mb-2">
+        <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
           Join 10,000+ Casino Learners
         </h3>
-        <p className="text-gray-600">
+        <p className="text-gray-600 text-sm sm:text-base">
           Get exclusive study tips, early access to new features, and special offers
         </p>
       </div>
 
       {/* Benefits */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {benefits.map((benefit, index) => (
           <motion.div
             key={index}
-            className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg"
+            className="flex items-start space-x-2 sm:space-x-3 p-3 bg-gray-50 rounded-lg"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <div className="bg-blue-100 rounded-lg p-2">
+            <div className="bg-blue-100 rounded-lg p-2 flex-shrink-0">
               <benefit.icon className="w-4 h-4 text-blue-600" />
             </div>
             <div>
-              <h4 className="font-semibold text-gray-800 text-sm">{benefit.title}</h4>
+              <h4 className="font-semibold text-gray-800 text-xs sm:text-sm">{benefit.title}</h4>
               <p className="text-gray-600 text-xs">{benefit.description}</p>
             </div>
           </motion.div>
@@ -187,7 +187,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
       {/* Form Fields */}
       <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               First Name
@@ -196,7 +196,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
               placeholder="John"
             />
           </div>
@@ -210,7 +210,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
               placeholder="john@example.com"
             />
           </div>
@@ -221,13 +221,13 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
           <label className="block text-sm font-medium text-gray-700 mb-3">
             What interests you? (Optional)
           </label>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {interestOptions.map((option) => (
               <motion.button
                 key={option.id}
                 type="button"
                 onClick={() => handleInterestToggle(option.id)}
-                className={`flex items-center space-x-2 p-2 rounded-lg border transition-all ${
+                className={`flex items-center space-x-1 sm:space-x-2 p-2 sm:p-3 rounded-lg border transition-all touch-manipulation ${
                   interests.includes(option.id)
                     ? 'border-blue-500 bg-blue-50 text-blue-700'
                     : 'border-gray-300 hover:border-gray-400'
@@ -235,8 +235,8 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="text-sm">{option.icon}</span>
-                <span className="text-xs font-medium">{option.label}</span>
+                <span className="text-sm flex-shrink-0">{option.icon}</span>
+                <span className="text-xs font-medium leading-tight">{option.label}</span>
               </motion.button>
             ))}
           </div>
@@ -259,7 +259,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       <motion.button
         type="submit"
         disabled={loading || !email}
-        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
+        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-3 sm:py-4 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 touch-manipulation min-h-[48px]"
         whileHover={{ scale: loading ? 1 : 1.02 }}
         whileTap={{ scale: loading ? 1 : 0.98 }}
       >
@@ -287,7 +287,7 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
 
   if (inline) {
     return (
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
+      <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6">
         {content}
       </div>
     );
@@ -296,17 +296,17 @@ export const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
       <motion.div
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto mx-4"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="flex justify-end mb-4">
             {onClose && (
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-gray-400 hover:text-gray-600 transition-colors touch-manipulation p-2"
               >
                 ✕
               </button>

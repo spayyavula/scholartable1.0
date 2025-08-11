@@ -122,15 +122,47 @@ footer input:focus-visible {
   }
   
   h1 {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    line-height: 1.2;
   }
   
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    line-height: 1.3;
   }
   
   .grid {
     gap: 1rem;
+  }
+  
+  /* Larger touch targets for mobile */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .mobile-spacing {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Improved text readability */
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Mobile-friendly forms */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 12px;
+  }
+  
+  /* Swipe-friendly cards */
+  .swipe-card {
+    scroll-snap-align: start;
+    min-width: 280px;
   }
 }
 
@@ -140,30 +172,93 @@ footer input:focus-visible {
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--background-color);
+  background: rgba(31, 41, 55, 0.95);
+  backdrop-filter: blur(10px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-around;
-  padding: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  padding-bottom: env(safe-area-inset-bottom, 0.75rem);
   z-index: 40;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .mobile-nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.75rem 0.5rem;
   color: var(--text-color);
   opacity: 0.7;
-  transition: opacity 0.2s;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  min-width: 60px;
 }
 
 .mobile-nav-item.active {
   opacity: 1;
   color: var(--primary-color);
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
 }
 
 .mobile-nav-item span {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Mobile-specific animations */
+@media (max-width: 768px) {
+  .mobile-fade-in {
+    animation: mobileFadeIn 0.3s ease-out;
+  }
+  
+  @keyframes mobileFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Smooth scrolling for mobile */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Hide scrollbars on mobile for cleaner look */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Touch-friendly hover states */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+  
+  .hover\:bg-opacity-80:hover {
+    background-opacity: 1;
+  }
+}
+
+/* Safe area handling for notched devices */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
 }
