@@ -2,6 +2,8 @@ import React from 'react';
 import { User, Coins, Trophy, Settings, BookOpen, Menu, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { User as UserType } from '../../types';
+import { useAuthContext } from '../Auth/AuthProvider';
+import { AuthModal } from '../Auth/AuthModal';
 import { AccessibilityMenu } from '../A11y/AccessibilityMenu';
 import { MobileMenu } from './MobileMenu';
 import { useAccessibility } from '../A11y/AccessibilityProvider';
@@ -15,6 +17,9 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources, onNavigate }) => {
   const { reduceMotion } = useAccessibility();
+  const { user: authUser, signOut } = useAuthContext();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   
   const handleNavigate = (view: string) => {
     if (onNavigate) {
@@ -23,7 +28,17 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources, onNavi
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      setShowUserMenu(false);
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
+    <>
     <motion.header 
       className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-2xl border-b border-casino-gold-600/30 safe-area-top"
       initial={{ y: -100 }}
@@ -117,28 +132,82 @@ export const Header: React.FC<HeaderProps> = ({ user, onOpenSATResources, onNavi
             </motion.div>
 
             {/* User Profile */}
-            <motion.div 
-              className="hidden sm:flex items-center space-x-2 sm:space-x-3 bg-gray-800/50 px-3 sm:px-4 py-2 rounded-full border border-gray-700/50"
-              aria-label={`User profile: ${user.name}`}
-              whileHover={reduceMotion ? {} : { scale: 1.05, backgroundColor: 'rgba(31, 41, 55, 0.7)' }}
-            >
-              <img
-                src={user.avatar}
-                alt={user.name}
-                role="presentation"
-                className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-casino-gold-400"
-              />
-              <span className="text-white font-medium font-body text-sm sm:text-base hidden md:inline">{user.name}</span>
-              <Settings 
-                className="w-4 h-4 text-gray-400 hover:text-white transition-colors cursor-pointer" 
-                aria-label="Open settings"
-                role="button"
-                tabIndex={0}
-              />
-            </motion.div>
+            {authUser ? (
+              <div className="relative">
+                <motion.button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="hidden sm:flex items-center space-x-2 sm:space-x-3 bg-gray-800/50 px-3 sm:px-4 py-2 rounded-full border border-gray-700/50"
+                  aria-label={`User profile: ${authUser.user_metadata?.name || authUser.email}`}
+                  whileHover={reduceMotion ? {} : { scale: 1.05, backgroundColor: 'rgba(31, 41, 55, 0.7)' }}
+                >
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-casino-gold-400 bg-casino-gold-400 flex items-center justify-center">
+                    <span className="text-gray-900 font-bold text-sm">
+                      {(authUser.user_metadata?.name || authUser.email || 'U').charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                  <span className="text-white font-medium font-body text-sm sm:text-base hidden md:inline">
+                    {authUser.user_metadata?.name || authUser.email?.split('@')[0]}
+                  </span>
+                  <Settings 
+                    className="w-4 h-4 text-gray-400 hover:text-white transition-colors" 
+                    aria-label="Open settings"
+                  />
+                </motion.button>
+
+                {/* User Menu Dropdown */}
+                <AnimatePresence>
+                  {showUserMenu && (
+                    <motion.div
+                      className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                    >
+                      <div className="px-4 py-2 border-b border-gray-200">
+                        <p className="text-sm font-medium text-gray-800">
+                          {authUser.user_metadata?.name || 'User'}
+                        </p>
+                        <p className="text-xs text-gray-600">{authUser.email}</p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          setShowUserMenu(false);
+                          // Navigate to profile
+                        }}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Profile Settings
+                      </button>
+                      <button
+                        onClick={handleSignOut}
+                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                      >
+                        Sign Out
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <motion.button
+                onClick={() => setShowAuthModal(true)}
+                className="hidden sm:flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                whileHover={reduceMotion ? {} : { scale: 1.05 }}
+                whileTap={reduceMotion ? {} : { scale: 0.95 }}
+              >
+                <span className="text-sm font-medium">Sign In</span>
+              </motion.button>
+            )}
           </div>
         </div>
       </div>
     </motion.header>
+    
+    {/* Authentication Modal */}
+    <AuthModal
+      isOpen={showAuthModal}
+      onClose={() => setShowAuthModal(false)}
+    />
+    </>
   );
 };

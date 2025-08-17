@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { AuthProvider } from './components/Auth/AuthProvider';
+import { useAuthContext } from './components/Auth/AuthProvider';
+import { AuthModal } from './components/Auth/AuthModal';
 import { Header } from './components/Layout/Header';
 import { CasinoTable } from './components/Casino/CasinoTable';
 import { GameCard } from './components/Casino/GameCard';
@@ -23,7 +26,7 @@ import { useAccessibility } from './components/A11y/AccessibilityProvider';
 import { Footer } from './components/Layout/Footer';
 import { MobileNavBar } from './components/Layout/MobileNavBar';
 
-function App() {
+function AppContent() {
   const [currentView, setCurrentView] = useState<'lobby' | 'quiz' | 'schema-designer' | 'subscription' | 'checkout' | 'newsletter' | 'marketing' | 'sat-resources' | 'ai-dashboard'>('lobby');
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [user, setUser] = useState(mockUser);
@@ -32,6 +35,8 @@ function App() {
   const [selectedPlan, setSelectedPlan] = useState<{ planId: string; priceId: string } | null>(null);
   const { reduceMotion } = useAccessibility();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { user: authUser, loading: authLoading } = useAuthContext();
   
   // Initialize Capacitor
   useEffect(() => {
@@ -99,17 +104,30 @@ function App() {
     triggerBobMessage('tips');
   }, []);
 
+  // Show auth modal if user tries to access premium features without being logged in
+  const requireAuth = (callback: () => void) => {
+    if (!authUser) {
+      setShowAuthModal(true);
+      return;
+    }
+    callback();
+  };
+
   const handlePlayGame = (game: Game) => {
-    setSelectedGame(game);
-    hapticImpact();
-    setCurrentView('quiz');
-    triggerBobMessage('tips', `Starting ${game.title}! Remember to read each question carefully. Good luck!`);
+    requireAuth(() => {
+      setSelectedGame(game);
+      hapticImpact();
+      setCurrentView('quiz');
+      triggerBobMessage('tips', `Starting ${game.title}! Remember to read each question carefully. Good luck!`);
+    });
   };
 
   const handleJoinTournament = (tournament: Tournament) => {
-    console.log('Joining tournament:', tournament.title);
-    hapticImpact();
-    triggerBobMessage('celebration', `Joined tournament: ${tournament.title}! Show them what you've got!`);
+    requireAuth(() => {
+      console.log('Joining tournament:', tournament.title);
+      hapticImpact();
+      triggerBobMessage('celebration', `Joined tournament: ${tournament.title}! Show them what you've got!`);
+    });
   };
 
   const handleQuizComplete = (results: any) => {
@@ -135,9 +153,11 @@ function App() {
   };
 
   const handleOpenSchemaDesigner = () => {
-    setCurrentView('schema-designer');
-    hapticImpact();
-    triggerBobMessage('tips', 'Welcome to the Schema Designer! Learn database design fundamentals while creating professional schemas.');
+    requireAuth(() => {
+      setCurrentView('schema-designer');
+      hapticImpact();
+      triggerBobMessage('tips', 'Welcome to the Schema Designer! Learn database design fundamentals while creating professional schemas.');
+    });
   };
 
   const handleCloseSchemaDesigner = () => {
@@ -145,9 +165,11 @@ function App() {
   };
 
   const handleOpenSubscription = () => {
-    setCurrentView('subscription');
-    hapticImpact();
-    triggerBobMessage('tips', 'Unlock your full learning potential with our premium plans!');
+    requireAuth(() => {
+      setCurrentView('subscription');
+      hapticImpact();
+      triggerBobMessage('tips', 'Unlock your full learning potential with our premium plans!');
+    });
   };
 
   const handleSelectPlan = (planId: string, priceId: string) => {
@@ -219,8 +241,10 @@ function App() {
   };
 
   const handleOpenAIDashboard = () => {
-    setCurrentView('ai-dashboard');
-    triggerBobMessage('tips', 'Explore our AI-powered learning intelligence system with TensorFlow.js machine learning models!');
+    requireAuth(() => {
+      setCurrentView('ai-dashboard');
+      triggerBobMessage('tips', 'Explore our AI-powered learning intelligence system with TensorFlow.js machine learning models!');
+    });
   };
 
   const stats = [
@@ -252,6 +276,18 @@ function App() {
       trend: { value: 15, isPositive: true }
     }
   ];
+
+  // Show loading screen while checking authentication
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-casino-gold-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-white text-lg">Loading Scholars Casino...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (currentView === 'quiz' && selectedGame) {
     // Use coding questions for coding subjects, regular questions for others
@@ -673,7 +709,7 @@ function App() {
       {/* Bob the Bot */}
       <BobTheBot
         currentContext="lobby"
-        userLevel={user.level}
+        userLevel={authUser ? user.level : 1}
         currentMessage={currentBobMessage}
         messageHistory={bobMessageHistory}
         onTriggerMessage={triggerBobMessage}
@@ -684,7 +720,21 @@ function App() {
       
       {/* Mobile Navigation Bar */}
       <MobileNavBar currentView={currentView} onNavigate={handleNavigate} />
+      
+      {/* Authentication Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
