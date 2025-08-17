@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { User, Coins, Trophy, Settings, BookOpen, Menu, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { User as UserType } from '../../types';
